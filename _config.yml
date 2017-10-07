@@ -6,7 +6,7 @@
 name: Kevin Galligan
 
 # Short bio or description (displayed in the header)
-description: Programmer Guitarist Tech Person
+description: Able to Read The Matrix
 
 
 #
@@ -24,8 +24,8 @@ footer-links:
   linkedin: kpgalligan
   pinterest:
   rss: # just type anything here for a working RSS icon
-  twitter: 
-  stackoverflow: # your stackoverflow profile, e.g. "users/3807565/akshay"
+  twitter: kpgalligan
+  stackoverflow: users/227313/kevin-galligan
   youtube: # channel/<your_long_string> or user/<user-name>
   googleplus: # anything in your profile username that comes after plus.google.com/
 
