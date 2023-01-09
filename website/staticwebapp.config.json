@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "route": "/using-compose-across-platforms",
+      "redirect": "/blog/2022/12/9/Using-Compose-Across-Platforms",
+      "statusCode": 301
+    },
+    {
+      "route": "/quick-start-with-kmmbridge-1-hour-tutorial",
+      "redirect": "/blog/2022/10/24/KMMBridge-Quickstart",
+      "statusCode": 301
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/github?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    },
+    "404": {
+      "rewrite": "/404.html"
+    }
+  }
+}
