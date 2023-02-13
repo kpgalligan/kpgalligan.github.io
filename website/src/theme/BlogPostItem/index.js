@@ -67,6 +67,7 @@ export default function BlogPostItem({children, className, bigView}) {
         )
     }
     return (
+        <>
         <BlogPostItemContainer>
             {isBlogPostPage &&
                 <>
@@ -132,5 +133,8 @@ export default function BlogPostItem({children, className, bigView}) {
                 </>
             }
         </BlogPostItemContainer>
+            <script defer src="https://cdn.commento.io/js/commento.js"></script>
+            <div id="commento"></div>
+            </>
     );
 }
