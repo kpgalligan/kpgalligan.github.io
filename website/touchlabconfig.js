@@ -1,5 +1,5 @@
-const orgName = "touchlab";
-const repoName = "SitePlayground";
+const orgName = "kpgalligan";
+const repoName = "website";
 
 const docusaurusConfig = {
     title: "Touchlab",
