@@ -63,29 +63,10 @@ function Team() {
     }
 
     const teamMembers = [
-        teamMemberRecord("Sam Hill", "Engineering Manager", [], "/about/sam.jpg"),
-        teamMemberRecord("Peter Chislett", "Operations Partner", {twitter: "https://twitter.com/chislett"}, "/about/peter.jpg"),
-        teamMemberRecord("Ben Whitley", "Multiplatform Developer", [], "/about/ben.jpg"),
-        teamMemberRecord("Paul Hawke", "Engineering Manager", [], "/about/paul.jpg"),
-        teamMemberRecord("Justin Mancinelli", "Dir. Product Strategy", {
-            twitter: "https://twitter.com/piannaf",
-            mastodon: "https://fosstodon.org/@piannaf"
-        }, "/about/justin.jpg"),
-        teamMemberRecord("Jeff Namnum", "Managing Partner", {twitter: "https://twitter.com/namnum"}, "/about/jeff.jpg"),
-        teamMemberRecord("Beth Traiman", "Operations", [], "/about/beth.jpg"),
         teamMemberRecord("Kevin Galligan", "Technical Partner", {twitter: "https://twitter.com/kpgalligan"}, "/about/kevin.jpg"),
-        teamMemberRecord("Hana Cenkova", "Project Manager", null, "/about/hana.jpg"),
-        teamMemberRecord("Dusan Solarik", "Project Manager", null, "/about/dusan.jpg"),
-        teamMemberRecord("Michael Friend", "Multiplatform Developer", null, "/about/michael.jpg"),
-        teamMemberRecord("Russell Wolf", "Senior Multiplatform Developer", null, "/about/russell.jpg"),
-        teamMemberRecord("Katie Galvin", "Project Manager", null, "/about/katie.jpg"),
-        teamMemberRecord("Gustavo Fao Valvassori", "Multiplatform Developer", null, "/about/gustavo.jpg"),
-        teamMemberRecord("Kevin Schildhorn", "Multiplatform Developer", null, "/about/kevins.jpg"),
-        teamMemberRecord("Jigar Brahmbhatt", "Senior Multiplatform Developer", null, "/about/jigar.jpg"),
-        teamMemberRecord("Júlia Jakubcová", "Multiplatform Developer", null, "/about/julia.jpeg"),
-        teamMemberRecord("Tadeas Kriz", "Senior Multiplatform Developer", null, "/about/tadeas.jpeg"),
-        teamMemberRecord("Filip Dolník", "Senior Multiplatform Developer", null, "/about/filip.jpeg"),
-        teamMemberRecord("Corinne Clements", "Content Marketer", null, "/about/corinne.jpeg"),
+        teamMemberRecord("Natalie Galligan", "Technical Partner", {twitter: "https://twitter.com/kpgalligan"}, "/about/natalie.jpg"),
+        teamMemberRecord("Binky Galligan", "Technical Partner", {twitter: "https://twitter.com/kpgalligan"}, "/about/binky.jpg"),
+
     ]
 
     return (
@@ -96,8 +77,7 @@ function Team() {
                     {/* Section header */}
                     <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
                         <h2 className="h2 mb-4">Our passionate team</h2>
-                        <p className="text-xl text-gray-400">Excepteur sint occaecat cupidatat non proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum consequat.</p>
+                        <p className="text-xl text-gray-400">It's a good time.</p>
                     </div>
 
                     {/* Team members */}

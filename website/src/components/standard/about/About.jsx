@@ -5,10 +5,6 @@ import HeroAbout from './HeroAbout';
 import TeamImages from './TeamImages';
 import Timeline from './Timeline';
 import Team from './Team';
-import TestimonialsCarousel from './TestimonialsCarousel';
-import Career from './Career';
-import Clients from './Clients';
-
 
 function About() {
   return (
@@ -24,10 +20,8 @@ function About() {
 
         <HeroAbout />
         <TeamImages />
-        <Career />
         <Team />
         <Timeline />
-        <Clients />
 
       </main>
 

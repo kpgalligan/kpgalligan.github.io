@@ -1,6 +1,6 @@
 ---
 title: Using Compose Across Platforms
-authors: [julia-jakubcova]
+authors: [kpgalligan]
 image: /blog/Compose-across-platforms.png
 tags: [kotlin-multiplatform, compose]
 ---

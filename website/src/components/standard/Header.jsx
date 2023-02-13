@@ -38,20 +38,8 @@ function Header() {
 
     const menuItems = [
         link("Home", "/"),
-        link("Services", null, [
-            link("Hands On Help", "/kmmpro", null, true),
-            link("Developer Support", "/kmmpro", null, true),
-            link("Organizational Support", "/kmmpro", null, true),
-            link("App/Product Development", "/kmmpro", null, true),
-        ]),
-        link("Products", null, [
-            link("Plasma UI (LUI)", "/plasmaui", null, true),
-            link("SKIE", "/skie", null, true),
-            link("Markdown Page Example", "/markdown-page", null, true),
-            link("Open Source Libraries", "https://github.com/touchlab", null, true),
-        ]),
         link("Blog", "/blog"),
-        link("About Us", "/about")
+        link("Timeline", "/about")
     ]
 
     const linkDesktop = ({name, path, subItems, linkId}) => {
@@ -139,7 +127,7 @@ function Header() {
                     <div className="flex items-center justify-between h-20">
                         <div className="flex-initial w-56 justify-start">
                             <Link to="/" className="block">
-                                <img src={Logo} className="h-8"/>
+                                <div className="text-2xl font-bold text-white">Kevin Galligan</div>
                             </Link>
                         </div>
 
