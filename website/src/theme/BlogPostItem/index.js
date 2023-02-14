@@ -68,7 +68,6 @@ export default function BlogPostItem({children, className, bigView}) {
         )
     }
     return (
-        <>
         <BlogPostItemContainer>
             {isBlogPostPage &&
                 <>
@@ -102,6 +101,9 @@ export default function BlogPostItem({children, className, bigView}) {
                     <div className="w-full lg:max-w-4xl mx-auto items-center flex flex-col">
                         <BlogPostItemContent>{children}</BlogPostItemContent>
                     </div>
+                    <div className="max-w-4xl mx-auto md:max-w-none items-center">
+                        <Comento id={permalink}/>
+                    </div>
                 </>
             }
             {!isBlogPostPage &&
@@ -134,7 +136,5 @@ export default function BlogPostItem({children, className, bigView}) {
                 </>
             }
         </BlogPostItemContainer>
-            <Comento id={permalink}/>
-            </>
     );
 }
