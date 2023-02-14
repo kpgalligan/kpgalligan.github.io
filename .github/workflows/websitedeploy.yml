@@ -27,4 +27,4 @@ jobs:
           git config --global user.name "Kevin Galligan"
           cd website
           npm install
-          DEPLOYMENT_BRANCH=main GIT_USER=ciuser GIT_PASS=${{ secrets.GITHUB_TOKEN }} yarn deploy
+          GIT_USER=ciuser GIT_PASS=${{ secrets.GITHUB_TOKEN }} yarn deploy
