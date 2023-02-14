@@ -5,6 +5,26 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('./intellijstyle.js');
 const touchlabConfig = require('./touchlabconfig.js');
 
+const gtagPlugin = [
+  '@docusaurus/plugin-google-gtag',
+  {
+    trackingID: touchlabConfig.extraConfig.trackingID,
+    anonymizeIP: true,
+  },
+]
+
+const tailwindPlugin = async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-tailwindcss-omg",
+        configurePostCss(postcssOptions) {
+          // Appends TailwindCSS and AutoPrefixer.
+          postcssOptions.plugins.push(require("tailwindcss"));
+          postcssOptions.plugins.push(require("autoprefixer"));
+          return postcssOptions;
+        },
+      };
+    }
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: touchlabConfig.docusaurusConfig.projectName,
@@ -29,27 +49,11 @@ const config = {
   },
 
   // plugins: ['@docusaurus/plugin-content-tldocs'],
-  plugins: [
-    [
-      '@docusaurus/plugin-google-gtag',
-      {
-        trackingID: touchlabConfig.extraConfig.trackingID,
-        anonymizeIP: true,
-      },
-    ],
-    async function myPlugin(context, options) {
-      return {
-        name: "docusaurus-tailwindcss-omg",
-        configurePostCss(postcssOptions) {
-          // Appends TailwindCSS and AutoPrefixer.
-          postcssOptions.plugins.push(require("tailwindcss"));
-          postcssOptions.plugins.push(require("autoprefixer"));
-          return postcssOptions;
-        },
-      };
-    },
 
-  ],
+  plugins: touchlabConfig.extraConfig.trackingID ? [
+    gtagPlugin,
+    tailwindPlugin
+  ] : [tailwindPlugin],
 
   presets: [
     [
