@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktouchlab=self.webpackChunktouchlab||[]).push([[846],{4948:l=>{l.exports=JSON.parse('[{"label":"kotlin-multiplatform","permalink":"/website/blog/tags/kotlin-multiplatform","count":1},{"label":"compose","permalink":"/website/blog/tags/compose","count":1}]')}}]);

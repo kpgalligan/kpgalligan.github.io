@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktouchlab=self.webpackChunktouchlab||[]).push([[74],{6779:e=>{e.exports=JSON.parse('{"label":"compose","permalink":"/website/blog/tags/compose","allTagsPath":"/website/blog/tags","count":1}')}}]);
