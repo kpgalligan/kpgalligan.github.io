@@ -1,11 +1,11 @@
 const orgName = "kpgalligan";
-const repoName = "website";
+const repoName = "kpgalligan.github.io";
 
 const docusaurusConfig = {
     title: "Kevin Galligan",
     tagline: "",
-    url: `https://green-smoke-0862bf810.2.azurestaticapps.net/`,
-    baseUrl: `/website/`,
+    url: `https://kpgalligan.github.io/`,
+    baseUrl: `/`,
     organizationName: orgName, // Usually your GitHub org/user name.
     projectName: repoName, // Usually your repo name.
 
