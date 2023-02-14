@@ -6,6 +6,7 @@ import BlogPostItemContent from '@theme/BlogPostItem/Content';
 import BlogPostItemHeaderInfo from '@theme/BlogPostItem/Header/Info';
 import BlogPostItemHeaderAuthors from '@theme/BlogPostItem/Header/Authors';
 import BlogTag from '@site/src/components/standard/blog/BlogTag';
+import Comento from "../../components/standard/Comento";
 
 // apply a bottom margin in list view
 function useContainerClassName() {
@@ -133,8 +134,7 @@ export default function BlogPostItem({children, className, bigView}) {
                 </>
             }
         </BlogPostItemContainer>
-            <script defer src="https://cdn.commento.io/js/commento.js"></script>
-            <div id="commento"></div>
+            <Comento id={permalink}/>
             </>
     );
 }
