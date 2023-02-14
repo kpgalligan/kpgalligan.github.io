@@ -2,17 +2,17 @@ const orgName = "kpgalligan";
 const repoName = "website";
 
 const docusaurusConfig = {
-    title: "Touchlab",
+    title: "Kevin Galligan",
     tagline: "",
     url: `https://green-smoke-0862bf810.2.azurestaticapps.net/`,
-    baseUrl: `/`,
+    baseUrl: `/website/`,
     organizationName: orgName, // Usually your GitHub org/user name.
     projectName: repoName, // Usually your repo name.
 
 };
 
 const extraConfig = {
-    trackingID: 'G-2WF0ECB9L3',
+    trackingID: '',
 }
 
 module.exports = {
