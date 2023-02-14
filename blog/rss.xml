@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Kevin Galligan Blog</title>
-        <link>https://green-smoke-0862bf810.2.azurestaticapps.net/website/blog</link>
+        <link>https://kpgalligan.github.io/blog</link>
         <description>Kevin Galligan Blog</description>
         <lastBuildDate>Sun, 11 Dec 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,7 +10,7 @@
         <language>en</language>
         <item>
             <title><![CDATA[OK Again]]></title>
-            <link>https://green-smoke-0862bf810.2.azurestaticapps.net/website/blog/2022/12/11/OKAgain</link>
+            <link>https://kpgalligan.github.io/blog/2022/12/11/OKAgain</link>
             <guid>/2022/12/11/OKAgain</guid>
             <pubDate>Sun, 11 Dec 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Since I started using Compose UI over a year ago it has changed and matured a lot. Yes, there were some complications, especially before the stable version, but I can say it has been a lot of fun developing in Compose. I would advise everyone, not just Android developers, to try it out, you might enjoy it as much as I do.]]></description>
@@ -20,7 +20,7 @@
         </item>
         <item>
             <title><![CDATA[Using Compose Across Platforms]]></title>
-            <link>https://green-smoke-0862bf810.2.azurestaticapps.net/website/blog/2022/12/9/Using-Compose-Across-Platforms</link>
+            <link>https://kpgalligan.github.io/blog/2022/12/9/Using-Compose-Across-Platforms</link>
             <guid>/2022/12/9/Using-Compose-Across-Platforms</guid>
             <pubDate>Fri, 09 Dec 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Let’s look at the differences you’ll encounter when using Compose for different platforms.  I have spent more time with some (Android) than the others, but I have experienced how it has progressed from its early states to the current versions. The initial frustration quickly turned into enjoyment. Here are answers to some basic questions you might have such as: How hard is it to set up, use and debug, what is unique for each platform? And what else can Compose be used for?]]></description>

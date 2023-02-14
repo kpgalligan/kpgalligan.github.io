@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktouchlab=self.webpackChunktouchlab||[]).push([[535],{5641:s=>{s.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"OK Again","permalink":"/blog/2022/12/11/OKAgain"},{"title":"Using Compose Across Platforms","permalink":"/blog/2022/12/9/Using-Compose-Across-Platforms"}]}')}}]);
