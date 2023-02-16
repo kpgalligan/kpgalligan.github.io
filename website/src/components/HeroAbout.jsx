@@ -16,10 +16,10 @@ export default function HeroAbout() {
             <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
                 <div className="pt-32 pb-12 md:pt-40 md:pb-20">
                     <div className="max-w-6xl mx-auto text-center">
-                        <h1 className="h1 mb-4 drop-shadow-lg text-white tl-text">Hello! I'm Kevin.</h1>
-                        <h2 className="h2 text-white mb-8 drop-shadow-lg mb-8 tl-text">
+                        <h1 className="h1 mb-4 drop-shadow-lg text-white tl-text">Hello!</h1>
+                        {/*<h2 className="h2 text-white mb-8 drop-shadow-lg mb-8 tl-text">
                             (Well, that's Binky)
-                        </h2>
+                        </h2>*/}
                     </div>
                 </div>
             </div>

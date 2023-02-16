@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import HeroAbout from '@site/src/components/HeroAbout';
 import TopSpacer from '@site/src/components/TopSpacer';
+import TeamImages from '@site/src/components/TeamImages';
 import TitleDetail from '@site/src/components/standard/TitleDetail';
 import Transition from '@site/src/utils/Transition';
 
@@ -71,14 +72,19 @@ export default function Home(): JSX.Element {
 
   return (
       <Layout
-          title={`Touchlab`}
+          title={`The NYC Galligans`}
           description="">
         <div className="preflight-wrapper">
+          <div className="flex flex-col min-h-screen overflow-hidden">
+          <main className="grow">
           <HeroAbout/>
           <TopSpacer/>
+          <TeamImages/>
           <TitleDetail
-              title="Touchlab is the industry leader in Kotlin Multiplatform development"
-              detail="We can build your app with next-generation cross platform technology, or help your mobile engineering team ship features faster, increase efficiency, and future-proof your products and processes."/>
+              title="Hello! We're the NYC Galligans!"
+              detail="Well, there are other 'Galligans' in NYC, but you know."/>
+          </main>
+          </div>
         </div>
       </Layout>
   );
