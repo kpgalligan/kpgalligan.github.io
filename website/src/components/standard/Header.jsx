@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Dropdown from '../../utils/Dropdown';
-import Logo from '@site/static/img/Touchlab_Gradient.png';
+import Logo from '@site/static/img/doglogo.png';
 
 function Header() {
 
@@ -39,7 +39,7 @@ function Header() {
     const menuItems = [
         link("Home", "/"),
         link("Blog", "/blog"),
-        link("Timeline", "/about")
+        // link("Timeline", "/about")
     ]
 
     const linkDesktop = ({name, path, subItems, linkId}) => {
@@ -127,9 +127,11 @@ function Header() {
                     <div className="flex items-center justify-between h-20">
                         <div className="flex-initial w-56 justify-start">
                             <Link to="/" className="block">
-                                <div className="text-2xl font-bold text-white">Kevin Galligan</div>
+                                <img src={Logo} className="h-12"/>
+                                {/*<div className="text-2xl font-bold text-white">Kevin Galligan</div>*/}
                             </Link>
                         </div>
+
 
                         <nav className="hidden md:flex md:grow">
                             <ul className={`flex grow justify-center flex-wrap items-center${bgBar && ' bg-gray-900 rounded-full bg-opacity-25 '}`}>

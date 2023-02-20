@@ -1,13 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Link from '@docusaurus/Link';
-import {
-  PageMetadata,
-  HtmlClassNameProvider,
-  ThemeClassNames,
-} from '@docusaurus/theme-common';
-import BlogLayout from '@theme/BlogLayout';
+import {HtmlClassNameProvider, PageMetadata, ThemeClassNames,} from '@docusaurus/theme-common';
 import Layout from '@theme/Layout';
 import BlogListPaginator from '@theme/BlogListPaginator';
 import SearchMetadata from '@theme/SearchMetadata';
@@ -19,56 +13,62 @@ import BlogPostItem from '@theme/BlogPostItem';
 // import AOS from 'aos';
 
 function BlogListPageMetadata(props) {
-  const {metadata} = props;
-  const {
-    siteConfig: {title: siteTitle},
-  } = useDocusaurusContext();
-  const {blogDescription, blogTitle, permalink} = metadata;
-  const isBlogOnlyMode = permalink === '/';
-  const title = isBlogOnlyMode ? siteTitle : blogTitle;
-  return (
-    <>
-      <PageMetadata title={title} description={blogDescription} />
-      <SearchMetadata tag="blog_posts_list" />
-    </>
-  );
+    const {metadata} = props;
+    const {
+        siteConfig: {title: siteTitle},
+    } = useDocusaurusContext();
+    const {blogDescription, blogTitle, permalink} = metadata;
+    const isBlogOnlyMode = permalink === '/';
+    const title = isBlogOnlyMode ? siteTitle : blogTitle;
+    return (
+        <>
+            <PageMetadata title={title} description={blogDescription}/>
+            <SearchMetadata tag="blog_posts_list"/>
+        </>
+    );
 }
+
 function BlogListPageContent(props) {
-  const {metadata, items, sidebar} = props;
+    const {metadata, items, sidebar} = props;
 
-  const mainItem = metadata.page === 1 ? items[0] : null
-    const otherItems = metadata.page === 1 ? items.slice(1) : items
+    console.log("items", items)
 
-    console.log("the main", metadata)
+    const filteredItems = items.filter((item) => {
+        return !item.content.frontMatter.draft
+    })
+
+    const mainItem = metadata.page === 1 ? filteredItems[0] : null
+    const otherItems = metadata.page === 1 ? filteredItems.slice(1) : filteredItems
 
     return (
-      <Layout
-          title={`Touchlab Blog`}
-          description="Our deepest thoughts">
-          <div className="preflight-wrapper">
-          <TopSpacer/>
-          <TopSpacer/>
+        <Layout
+            title={`Touchlab Blog`}
+            description="Our deepest thoughts">
+            <div className="preflight-wrapper">
+                <TopSpacer/>
+                <TopSpacer/>
 
-          <div className="mt-8 max-w-6xl mx-auto px-4 sm:px-6 relative">
+                <div className="mt-8 max-w-6xl mx-auto px-4 sm:px-6 relative">
 
-              {mainItem &&
-              <BlogPostProvider
-                  key={mainItem.content.metadata.permalink}
-                  content={mainItem.content}>
-                  <BlogPostItem bigView="true">
-                      <mainItem.content />
-                  </BlogPostItem>
-              </BlogPostProvider>
-              }
+                    {mainItem &&
+                        <BlogPostProvider
+                            key={mainItem.content.metadata.permalink}
+                            content={mainItem.content}>
+                            <BlogPostItem bigView="true">
+                                <mainItem.content/>
+                            </BlogPostItem>
+                        </BlogPostProvider>
+                    }
 
-              <BlogPostItems items={otherItems}/>
-              <BlogListPaginator metadata={metadata}/>
-          </div>
+                    <BlogPostItems items={otherItems}/>
+                    <BlogListPaginator metadata={metadata}/>
+                </div>
 
-          </div>
-      </Layout>
-  );
+            </div>
+        </Layout>
+    );
 }
+
 export default function BlogListPage(props) {
     // useEffect(() => {
     //   AOS.init({
@@ -78,14 +78,14 @@ export default function BlogListPage(props) {
     //     easing: 'ease-out-sine',
     //   });
     // });
-  return (
-    <HtmlClassNameProvider
-      className={clsx(
-        ThemeClassNames.wrapper.blogPages,
-        ThemeClassNames.page.blogListPage,
-      )}>
-      <BlogListPageMetadata {...props} />
-      <BlogListPageContent {...props} />
-    </HtmlClassNameProvider>
-  );
+    return (
+        <HtmlClassNameProvider
+            className={clsx(
+                ThemeClassNames.wrapper.blogPages,
+                ThemeClassNames.page.blogListPage,
+            )}>
+            <BlogListPageMetadata {...props} />
+            <BlogListPageContent {...props} />
+        </HtmlClassNameProvider>
+    );
 }

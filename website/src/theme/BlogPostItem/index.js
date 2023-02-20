@@ -27,6 +27,7 @@ export default function BlogPostItem({children, className, bigView}) {
     const {metadata, isBlogPostPage} = useBlogPost();
     const {permalink, tags, title, date, formattedDate, readingTime, editUrl, hasTruncateMarker} = metadata;
 
+    const isDraft = metadata?.frontMatter?.draft
     let postImage = metadata?.frontMatter?.image
     if (!postImage && !isBlogPostPage)
         postImage = "/img/blog_no_image.png"
@@ -72,7 +73,7 @@ export default function BlogPostItem({children, className, bigView}) {
             {isBlogPostPage &&
                 <>
                     <div className="max-w-4xl mx-auto md:max-w-none items-center flex flex-col">
-                        <h2 className="h2 mb-0 max-w-4xl mx-auto">{title}</h2>
+                        <h2 className="h2 mb-0 max-w-4xl mx-auto">{`${title}${isDraft?' (Draft)':''}`}</h2>
                     </div>
                     <div className="max-w-5xl mx-auto lg:items-center flex lg:flex-row flex-col mt-4">
                         <div className="flex flex-col lg:flex-row lg:items-center lg:mb-2 grow">

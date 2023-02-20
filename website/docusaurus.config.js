@@ -119,15 +119,15 @@ const config = {
           style: 'dark',
           links: [
             {
-              title: 'Touchlab',
+              title: 'Kevin Galligan',
               items: [
                 {
                   label: 'Website',
-                  href: 'https://touchlab.co/',
+                  href: 'https://kgalligan.com/',
                 },
                 {
-                  label: 'Touchlab Github',
-                  href: `https://github.com/${touchlabConfig.docusaurusConfig.organizationName}/`,
+                  label: 'Touchlab',
+                  href: `https://touchlab.co/`,
                 },
               ],
             },
@@ -136,13 +136,13 @@ const config = {
               items: [
                 {
                   label: 'Twitter',
-                  href: 'https://twitter.com/TouchlabHQ',
+                  href: 'https://twitter.com/kpgalligan',
                 },
               ],
             },
 
           ],
-          copyright: `Copyright © ${new Date().getFullYear()} Touchlab`,
+          copyright: `Copyright © ${new Date().getFullYear()} Kevin Galligan`,
         },
         prism: {
           // theme: require('./src/utils/DarkTheme').theme,
