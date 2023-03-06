@@ -1,6 +1,6 @@
 ---
 authors: [kpgalligan]
-image: /blog/motorrollo.jpg
+image: /blog/langone.jpg
 ---
 
 # Medical Update
@@ -39,10 +39,18 @@ That was Thursday morning. There were no rooms, so I stayed in the ER until Frid
 
 Originally I was going to stay through Tuesday, but recovery was so quick they let me out Sunday. While I was certainly happy to go home, by Sunday I was basically fine. That room would be pretty amazing if you could get around easily :)
 
-Anyway, after all that, the diagnosis was CIDP. It's relatively rare, and probably caused by whatever respiratory virus I had mid December. I had 3 infusions of IVIG: Friday night, Saturday night, and Sunday afternoon. After the first one, Saturday morning, my hands were useful again, and I could get around with the walker. On Sunday, I could walk without the walker.
+Anyway, after all that, the diagnosis was [CIDP](https://www.hopkinsmedicine.org/health/conditions-and-diseases/chronic-inflammatory-demyelinating-polyradiculoneuropathy). It's an autoimmune condition where your body attacks the myelin sheath around your neurons. There's no obvious "test" for that, except for the collection of symptoms and some test markers. There are several other pretty terrible things that my symptoms could've suggested (ALS, etc), but I was extremely lucky on that front.
 
-On Tuesday, 2/28, I went to that Neurology appointment. The doctor said it might be AIDP, which means I may be done with treatment altogether. My hand and leg strength as of Wednesday, 6 days after the fall, seemed completely back to normal (except atrophy, which should be built back up quickly). 
+It's relatively rare, and probably caused by whatever respiratory virus I had mid December. Apparently what seems like a normal "cold" can trigger a response like this in rare cases.
 
-So, Thursday, can't walk or use my hands. 5-6 days later, back to normal. It's been a wild couple weeks.
+I had 3 infusions of IVIG: Friday night, Saturday night, and Sunday afternoon. After the first one, Saturday morning, my hands were useful again, and I could get around with the walker. On Sunday, I could walk without the walker.
 
-Please donate blood. That's how they make IVIG. Huge thanks to the NYU medical team.
+[IVIG](https://www.webmd.com/a-to-z-guides/immunoglobulin-therapy) is interesting. It's made from processed blood donations. I haven't done the Google-based medical research enough to understand it, but let's just say it was magic. And if you can donate blood, please do so.
+
+On Tuesday, 2/28, I went to that Neurology appointment. The doctor said it might be AIDP rather than CIDP. The difference is "Acute" vs "Chronic". If it's "Acute", then I might be done. Chronic would mean IVIG every month or two, but we'll cross fingers on "Acute". Even if "chronic", it's not a big deal.
+
+My hand and leg strength as of Wednesday, 6 days after the fall, seemed completely back to normal (except atrophy from lack of use, which should be built back up quickly). 
+
+So, Thursday, can't walk or use my hands. 5-6 days later, back to normal. 2023 has already been pretty wild.
+
+Please donate blood. That's how they make IVIG. Also, a huge thanks to the NYU medical team. Everybody was amazing.
