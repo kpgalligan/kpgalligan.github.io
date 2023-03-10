@@ -298,9 +298,20 @@ p,
 .preflight-wrapper ol,
 .preflight-wrapper ul,
 .preflight-wrapper menu {
+    /*list-style: none;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+}
+
+.preflight-wrapper nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.preflight-wrapper .markdown ul {
+    /*list-style: disc;*/
+    /*display: list-item !important;*/
 }
 
 /*
