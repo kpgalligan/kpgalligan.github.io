@@ -3,6 +3,10 @@ image: /img/open-source-updates-v1.png
 authors: [kpgalligan]
 ---
 
+<head>
+    <link rel="canonical" href="https://touchlab.co/open-source-updates/" />
+</head>
+
 # Open Source Updates
 
 We've been heads down for the last few months working on our new professional offerings: [SKIE and Touchlab Pro](https://get.touchlab.co/skie-touchlab-pro/). We'll be posting about them soon. While that work has been the major focus, our open source projects have been mostly getting critical updates. As our new projects have been nearing release, we've finished a bunch of updates to our open source libraries.
