@@ -1,0 +1,32 @@
+---
+import { SITE } from '~/config.mjs';
+import Layout from '~/layouts/PageLayout.astro';
+
+import TeamImages from "../components/TeamImages.astro";
+import HeroAbout from "../components/HeroAbout.astro";
+import TopSpacerAstro from "../components/TopSpacerAstro.astro";
+import TitleDetail from "../components/TitleDetail.astro";
+
+const meta = {
+  title: SITE.title,
+  description: SITE.description,
+  dontUseTitleTemplate: true,
+};
+---
+
+<Layout {meta}>
+
+  <TopSpacerAstro/>
+
+  <!-- <HeroAbout/> -->
+
+  <TitleDetail
+    title="Hello! I'm Kevin Galligan!"
+    >This is Natalie and Binky.</TitleDetail>
+  <TeamImages/>
+
+  <TitleDetail
+    title="There's a blog"
+    >You're probably here for <a href="/blog" class="dark:text-cyan-400 text-cyan-600">the blog</a></TitleDetail>
+
+</Layout>

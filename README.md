@@ -1,230 +1,258 @@
-# CrashKiOS - Crash reporting for Kotlin/iOS
+# 🚀 AstroWind
 
-Thin library that provides symbolicated crash reports for Kotlin code on iOS. Supports sending crashes, and handled exceptions, as well as logging breadcrumbs and custom key/value pairs. Currently supported crash reporting services are [Firebase Crashlytics](https://firebase.google.com/) and [Bugsnag](https://www.bugsnag.com/).
+<img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right"
+     alt="AstroWind Lighthouse Score" width="100" height="358">
 
-To use crash reporting with general logging support, check out [Kermit](https://github.com/touchlab/Kermit/).
+🌟 _Most *starred* & *forked* Astro theme in 2022_. 🌟
 
-If you're wondering *why* you need this library, please see [the problem](THE_PROBLEM.md).
+**AstroWind** is a free and open-source template to make your website using **[Astro 2.0](https://astro.build/blog/astro-2/) + [Tailwind CSS](https://tailwindcss.com/)**. Ready to start a new project and designed taking into account web best practices.
 
-> ## Subscribe!
->
-> We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
-> [Sign up here](https://go.touchlab.co/newsletter-gh)!
+## Features
 
-## Dynamic linking with bitcode generation
+- ✅ Integration with **Tailwind CSS** ([@astrojs/tailwind](https://docs.astro.build/en/guides/integrations-guide/tailwind/)) supporting **Dark mode**.
+- ✅ **Production-ready** scores in [Lighthouse](https://web.dev/measure/) and [PageSpeed Insights](https://pagespeed.web.dev/) reports.
+- ✅ **Fast and SEO friendly blog** with automatic **RSS feed** ([@astrojs/rss](https://docs.astro.build/en/guides/rss/)), [**MDX** support](https://docs.astro.build/en/guides/integrations-guide/mdx/), **Categories & Tags**, **Social Share**, ...
+- ✅ **Image optimization** ([@astrojs/images](https://docs.astro.build/en/guides/integrations-guide/image/)) and **Font optimization**.
+- ✅ Generation of **project sitemap** based on your routes ([@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)).
+- ✅ **Open Graph tags** for social media sharing.
+- ✅ **Analytics** built-in Google Analytics, and Splitbee integration.
 
-The `ld` (linker) does not support bitcode generation together with `-U` flag (this flag tells the linker that it's ok not to have a definition for some symbol - because it will be dynamically linked). We use the `-U` flag in CrashKiOS - but only if the resulting Kotlin framework is dynamically linked.
+<br>
 
-This means that it's not possible to use CrashKiOS, dynamic linking, and bitcode generation at the same time (any other combination is fine).
+<img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/screenshot-astro2.jpg" alt="AstroWind Theme Screenshot">
 
-If you wish to use dynamic linking, disable bitcode generation. For example:
+[![onWidget](https://custom-icon-badges.demolab.com/badge/made%20by%20-onWidget-556bf2?style=flat-square&logo=onwidget&logoColor=white&labelColor=101827)](https://onwidget.com)
+[![License](https://img.shields.io/github/license/onwidget/astrowind?style=flat-square&color=dddddd&labelColor=000000)](https://github.com/onwidget/astrowind/blob/main/LICENSE.md)
+[![Maintained](https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square)](https://github.com/onwidget)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/onwidget/astrowind#contributing)
+[![Known Vulnerabilities](https://snyk.io/test/github/onwidget/astrowind/badge.svg?style=flat-square)](https://snyk.io/test/github/onwidget/astrowind)
+[![Stars](https://img.shields.io/github/stars/onwidget/astrowind.svg?style=social&label=stars&maxAge=86400&color=ff69b4)](https://github.com/onwidget/astrowind)
+[![Forks](https://img.shields.io/github/forks/onwidget/astrowind.svg?style=social&label=forks&maxAge=86400&color=ff69b4)](https://github.com/onwidget/astrowind)
 
-```kotlin
-kotlin {
-    targets.withType<KotlinNativeTarget> {
-        binaries {
-            framework {
-                embedBitcode = BitcodeEmbeddingMode.DISABLE
-            }
-        }
-    }
-}
-```
+<br>
 
-## Crashlytics Usage
+<details open>
+<summary>Table of Contents</summary>
 
-Add the dependency.
+- [Demo](#demo)
+- [Getting started](#getting-started)
+  - [Project structure](#project-structure)
+  - [Commands](#commands)
+  - [Configuration](#configuration)
+  - [Deploy](#deploy)
+- [Frequently Asked Questions](#frequently-asked-questions)
+- [Related Projects](#related-projects)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
 
-```kotlin
-val commonMain by sourceSets.getting {
-    dependencies {
-        implementation("co.touchlab.crashkios:crashlytics:x.y.z")
-    }
-}
-```
+</details>
 
-The library by default has noop implementations of the crash logging calls. This is because in test situations you generally don't want to interact with the crash logging. On iOS specifically, this will allow you to run tests without needing to link against the Crashlytics runtime library.
+<br>
 
-As a result, in the live app you need to initialize CrashKiOS. For both Android and iOS, you must call the following:
+## Demo
 
-```kotlin
-enableCrashlytics()
-```
+📌 [https://astrowind.vercel.app/](https://astrowind.vercel.app/)
 
-You sould generally do this as part of app initialization, after you make the calls to start Crashlytics itself.
+<br>
 
-On iOS, you should also set the unhandled exception hook:
+## Getting started
 
-```kotlin
-setCrashlyticsUnhandledExceptionHook()
-```
+**AstroWind** tries to give you quick access to creating a website using [Astro 2.0](https://astro.build/blog/astro-2/) + [Tailwind CSS](https://tailwindcss.com/). It's a free theme focuses on simplicity, good practices and high performance.
 
-Once initialized, you call methods on `CrashlyticsKotlin`, from common code or platform-specific code.
+Very little vanilla javascript is used only to provide basic functionality so that each developer decides which framework (React, Vue, Svelte, Solid JS...) to use and how to approach their goals..
 
-```kotlin
-CrashlyticsKotlin.logMessage("Some message")
-CrashlyticsKotlin.sendHandledException(Exception("Some exception"))
-CrashlyticsKotlin.sendFatalException(Exception("Some exception"))
-CrashlyticsKotlin.setCustomValue("someKey", "someValue")
-```
+### Project structure
 
-### Testing
-
-Your test code should not call `enableCrashlytics()`. Before calling `enableCrashlytics()`, calls to `CrashlyticsKotlin` are all no-ops. Also, on iOS, avoiding `enableCrashlytics()` means you don't need to worry about Crashlytics linker issues.
-
-### Linking
-
-If you are using dynamic frameworks, you'll see a linker error when building your framework.
+Inside AstroWind template, you'll see the following folders and files:
 
 ```
-Undefined symbols for architecture x86_64:
-  "_OBJC_CLASS_$_FIRStackFrame", referenced from:
-      objc-class-ref in result.o
-  "_OBJC_CLASS_$_FIRExceptionModel", referenced from:
-      objc-class-ref in result.o
-  "_OBJC_CLASS_$_FIRCrashlytics", referenced from:
-      objc-class-ref in result.o
-  "_FIRCLSExceptionRecordNSException", referenced from:
-      _co_touchlab_crashkios_crashlytics_FIRCLSExceptionRecordNSException_wrapper0 in result.o
-ld: symbol(s) not found for architecture x86_64
+/
+├── public/
+│   ├── robots.txt
+│   └── favicon.ico
+├── src/
+│   ├── assets/
+│   │   ├── images/
+│   │   └── styles/
+│   │       └── base.css
+│   ├── components/
+│   │   ├── blog/
+│   │   ├── common/
+│   │   ├── widgets/
+│   │   │   ├── Header.astro
+│   │   │   └── ...
+│   │   ├── CustomStyles.astro
+│   │   └── Logo.astro
+│   ├── content/
+│   │   ├── post/
+│   │   │   ├── post-slug-1.md
+│   │   │   ├── post-slug-2.mdx
+│   │   │   └── ...
+│   │   └-- config.ts
+│   ├── layouts/
+│   │   ├── BaseLayout.astro
+│   │   └── ...
+│   ├── pages/
+│   │   ├── [...blog]/
+│   │   │   ├── [category]/
+│   │   │   ├── [tag]/
+│   │   │   ├── [...page].astro
+│   │   │   └── index.astro
+│   │   ├── index.astro
+│   │   ├── 404.astro
+│   │   ├-- rss.xml.ts
+│   │   └── ...
+│   ├── utils/
+│   ├── config.mjs
+│   └── data.js
+├── package.json
+├── astro.config.mjs
+└── ...
 ```
 
-To resolve this, you should tell the linker that Crashlytics will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-```kotlin
-plugins {
-  id("co.touchlab.crashkios.crashlyticslink") version "x.y.z"
-}
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+
+Any static assets, like images, can be placed in the `public/` directory if they do not require any transformation or in the `assets/` directory if they are imported directly.
+
+[![Edit AstroWind on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://githubbox.com/onwidget/astrowind/tree/main)
+
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Update `config.mjs` and contents. Have fun!
+
+<br>
+
+### Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command               | Action                                             |
+| :-------------------- | :------------------------------------------------- |
+| `npm install`         | Installs dependencies                              |
+| `npm run dev`         | Starts local dev server at `localhost:3000`        |
+| `npm run build`       | Build your production site to `./dist/`            |
+| `npm run preview`     | Preview your build locally, before deploying       |
+| `npm run format`      | Format codes with Prettier                         |
+| `npm run lint:eslint` | Run Eslint                                         |
+| `npm run astro ...`   | Run CLI commands like `astro add`, `astro preview` |
+
+<br>
+
+### Configuration
+
+Basic configuration file: `./src/config.mjs`
+
+```javascript
+const CONFIG = {
+  name: 'Example',
+
+  origin: 'https://example.com',
+  basePathname: '/', // Change this if you need to deploy to Github Pages, for example
+  trailingSlash: false, // Generate permalinks with or without "/" at the end
+
+  title: 'Example - This is the homepage title of Example', // Default seo title
+  description: 'This is the homepage description of Example', // Default seo description
+  defaultImage: 'image.jpg', // Default seo image
+
+  defaultTheme: 'system', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+
+  language: 'en', // Default language
+  textDirection: 'ltr', // Default html text direction
+
+  dateFormatter: new Intl.DateTimeFormat('en', {
+    // Date format
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }),
+
+  googleAnalyticsId: false, // Or "G-XXXXXXXXXX",
+  googleSiteVerificationId: false, // Or some value,
+
+  blog: {
+    disabled: false,
+    postsPerPage: 4,
+
+    post: {
+      permalink: '/%slug%', // variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      noindex: false,
+      disabled: false,
+    },
+
+    list: {
+      pathname: 'blog', // Blog main path, you can change this to "articles" (/articles)
+      noindex: false,
+      disabled: false,
+    },
+
+    category: {
+      pathname: 'category', // Category main path /category/some-category
+      noindex: true,
+      disabled: false,
+    },
+
+    tag: {
+      pathname: 'tag', // Tag main path /tag/some-tag
+      noindex: true,
+      disabled: false,
+    },
+  },
+};
 ```
 
-### Crashlytics Sample
+<br>
 
-See [samples/sample-crashlytics](samples/sample-crashlytics).
+### Deploy
 
-## Bugsnag Usage
+#### Deploy to production (manual)
 
-Add the dependency.
+You can create an optimized production build with:
 
-```kotlin
-val commonMain by sourceSets.getting {
-    dependencies {
-        implementation("co.touchlab.crashkios:bugsnag:x.y.z")
-    }
-}
+```shell
+npm run build
 ```
 
-The library by default has noop implementations of the crash logging calls. This is because in test situations you generally don't want to interact with the crash logging. On iOS specifically, this will allow you to run tests without needing to link against the Bugsnag runtime library.
+Now, your website is ready to be deployed. All generated files are located at
+`dist` folder, which you can deploy the folder to any hosting service you
+prefer.
 
-As a result, in the live app you need to initialize CrashKiOS. For both Android and iOS, you must call the following:
+#### Deploy to Netlify
 
-```kotlin
-enableBugsnag()
-```
+Clone this repository on own GitHub account and deploy to Netlify:
 
-You sould generally do this as part of app initialization, after you make the calls to start Bugsnag itself.
+[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/onwidget/astrowind)
 
-### iOS Only
+#### Deploy to Vercel
 
-Bugsnag is somewhat more complex than Crashlytics on iOS. On startup, the library needs to suppress an extra error report from being sent. That requires some extra calls, or you can use a helper function that will handle everything.
+Clone this repository on own GitHub account and deploy to Vercel:
 
-The detailed calls you need to make are the following:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonwidget%2Fastrowind)
 
-In the iOS init, before starting Bugsnag, you need to call `configureBugsnag` with an instance of `BugsnagConfiguration`. The simplest way to get `BugsnagConfiguration` from Swift is by calling:
+<br>
 
-```swift
-let config = BugsnagConfiguration.loadConfig()
-```
+## Frequently Asked Questions
 
-#### Option 1: Manual Calls
+- Why?
+-
+-
 
-Call `configureBugsnag` with that config. This *must* be called before starting Bugsnag.
+<br>
 
-```swift
-BugsnagConfigKt.configureBugsnag(config: config)
-```
+## Related projects
 
-Start Bugsnag
+- [Qwind](https://qwind.pages.dev/) - A template to make your website using Qwik + Tailwind CSS.
 
-```swift
-Bugsnag.start(with: config)
-```
+## Contributing
 
-Then set the default exception handler hook
+If you have any idea, suggestions or find any bugs, feel free to open a discussion, an issue or create a pull request.
+That would be very useful for all of us and we would be happy to listen and take action.
 
-```swift
-BugsnagConfigKt.setBugsnagUnhandledExceptionHook()
-```
+## Acknowledgements
 
-If you haven't done so, call:
+Initially created by [onWidget](https://onwidget.com) and maintained by a community of [contributors](https://github.com/onwidget/astrowind/graphs/contributors).
 
-```swift
-BugsnagConfigKt.enableBugsnag()
-```
+## License
 
-
-
-#### Option 2: Helper Calls
-
-You can call a single function that performs the 4 steps above.
-
-```swift
-BugsnagConfigKt.startBugsnag(config: config)
-```
-
-That function calls `configureBugsnag`, `Bugsnag.start`, `setBugsnagUnhandledExceptionHook`, and `enableBugsnag()`.
-
-### Using the Library
-
-Once initialized, you call methods on `BugsnagKotlin`
-
-```kotlin
-BugsnagKotlin.logMessage("Some message")
-BugsnagKotlin.sendHandledException(Exception("Some exception"))
-BugsnagKotlin.sendFatalException(Exception("Some exception"))
-BugsnagKotlin.setCustomValue("someKey", "someValue")
-```
-
-### Testing
-
-Your test code should not call `enableBugsnag()`. Before calling `enableBugsnag()`, calls to `BugsnagKotlin` are all no-ops. Also, on iOS, avoiding `enableBugsnag()` means you don't need to worry about Bugsnag linker issues.
-
-### Linking
-
-If you are using dynamic frameworks, you'll see a linker error when building your framework.
-
-```
-Undefined symbols for architecture x86_64:
-  "_OBJC_CLASS_$_BugsnagFeatureFlag", referenced from:
-      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
-  "_OBJC_CLASS_$_BugsnagStackframe", referenced from:
-      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
-  "_OBJC_CLASS_$_BugsnagError", referenced from:
-      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
-  "_OBJC_CLASS_$_Bugsnag", referenced from:
-      objc-class-ref in libco.touchlab.crashkios:bugsnag-cache.a(result.o)
-      objc-class-ref in libco.touchlab:kermit-bugsnag-cache.a(result.o)
-ld: symbol(s) not found for architecture x86_64
-```
-
-To resolve this, you should tell the linker that Bugsnag will be added later. You can do that directly, or you can use our Gradle plugin. It will find all Xcode Frameworks being built by Kotlin and add the necessary linker arguments.
-
-```kotlin
-plugins {
-  id("co.touchlab.crashkios.bugsnaglink") version "x.y.z"
-}
-```
-
-### Bugsnag Sample
-
-See [samples/sample-bugsnag](samples/sample-bugsnag).
-
-## NSExceptionKt
-
-CrashKiOS and Kermit previously created 2 reports on a crash because none of the crash reporting clients had an obvious way to do one. [Rick Clephas](https://github.com/rickclephas) has done some excellent work figuring that out with [NSExceptionKt](https://github.com/rickclephas/NSExceptionKt). CrashKiOS now uses part of that library as a base and we've merged the cinterop from Kermit and NSExeptionKt to handle crashes as well as breadcrumb values and log statements.
-
-## Getting Help
-
-CrashKiOS support can be found in the Kotlin Community Slack, [request access here](http://slack.kotlinlang.org/). Post in the "[#touchlab-tools](https://kotlinlang.slack.com/archives/CTJB58X7X)" channel.
-
-For direct assistance, please [contact Touchlab](https://go.touchlab.co/contactus-gh) to discuss support options.
-
+**AstroWind** is licensed under the MIT license — see the [LICENSE](./LICENSE.md) file for details.
