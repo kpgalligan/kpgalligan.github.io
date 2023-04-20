@@ -29,6 +29,10 @@ export default defineConfig({
 
   output: 'static',
 
+  experimental: {
+    assets: true
+  },
+  
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
     shikiConfig: {
