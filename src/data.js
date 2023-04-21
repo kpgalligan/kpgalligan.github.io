@@ -8,13 +8,19 @@ export const headerData = {
     },
   ],
   actions: [
-    { type: 'button', text: 'kgalligan.com', href: 'https://kgalligan.com' }
+    { type: 'button', text: 'Touchlab', href: 'https://touchlab.co' }
   ],
 };
   
 export const footerData = {
   links: [
-    
+    {
+      title: 'Links',
+      links: [
+        { text: 'Touchlab', href: 'https://touchlab.co' },
+        
+      ],
+    },
   ],
   secondaryLinks: [
   ],
