@@ -48,7 +48,9 @@ export default defineConfig({
         applyBaseStyles: false,
       },
     }),
-    sitemap(),
+    sitemap({
+      filter: (page) => page.endsWith("moviedata.json"),
+    }),
     image({
       serviceEntryPoint: '@astrojs/image/sharp',
     }),
