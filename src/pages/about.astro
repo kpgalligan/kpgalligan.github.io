@@ -17,39 +17,29 @@ const projects = await getAllProjects()
     <div class="min-w-full">
       <div class="prose mb-8">
         <p class="mb-4">
-          astro-erudite is an opinionated, unstyled static blogging template
-          that prioritizes simplicity and performance, built with <Link
-            href="https://astro.build"
-            class="text-foreground"
-            external
-            underline>Astro</Link
-          >, <Link
-            href="https://tailwindcss.com"
-            class="text-foreground"
-            external
-            underline>Tailwind</Link
-          >, and <Link
-            href="https://ui.shadcn.com"
-            class="text-foreground"
-            external
-            underline>shadcn/ui</Link
-          >. It provides a clean foundation for your content while being
-          extremely easy to customize.
-        </p>
+          Kevin Galligan is a technology professional with decades of development and management experience. Since the announcement of Android in 2008, he has been focused primarily in the mobile space. He founded <Link
+          href="https://touchlab.co"
+          class="text-foreground"
+          external
+          underline>Touchlab</Link
+        > in 2011, and is currently the Technology Partner, guiding the technical direction and vision of the organization. Over the past decade, his focus has been reducing or removing the inherent inefficiencies of mobile product development in a largely two-platform world. That journey started with J2ObjC, led to foundational and ongoing work with KMP, and now continues in the age of AI.
+          
+          </p>
         <p>
-          To learn more about the philosophy behind this template, check out the
-          following blog post: <Link
-            href="/blog/the-state-of-static-blogs"
+          He is <i>also</i> rather busy, so the "About" page will get a refresh later. See 
+          <Link
+            href="https://www.linkedin.com/in/kpgalligan/"
             class="text-foreground"
-            underline>The State of Static Blogs in 2024</Link
-          >.
+            external
+            underline>LinkedIn</Link
+          > for details on his professional history.
         </p>
       </div>
-
-      <h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
-      </div>
+      
+      <!--<h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>-->
+      <!--<div class="flex flex-col gap-4">-->
+      <!--  {projects.map((project) => <ProjectCard project={project} />)}-->
+      <!--</div>-->
     </div>
   </section>
 </Layout>
