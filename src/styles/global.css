@@ -1,61 +1,94 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme inline {
+  --font-sans:
+    Geist, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
 
-/* Tailwind doesn't fully support some of the complex CSS selectors needed for code highlighting,
-so we need to keep some custom CSS but applied through Tailwind's plugin system
-These styles are for code highlighting that can't be easily implemented with just Tailwind */
-@layer utilities {
-    .content pre {
-        @apply p-0;
-    }
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-    .content code {
-        @apply overflow-x-auto;
-    }
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
 
-    .content [data-rehype-pretty-code-figure] code {
-        @apply p-0;
-    }
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
-    .content pre > code span[data-line] {
-        @apply border-l-8 border-transparent px-2;
-    }
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 
-    .content pre > code span:first-of-type {
-        @apply rounded-t-lg pt-2;
-    }
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-    .content pre > code span:last-of-type {
-        @apply rounded-b-lg pb-2;
-    }
+  --color-additive: var(--additive);
+  --color-additive-foreground: var(--additive-foreground);
 
-    .content pre > code .highlighted {
-        @apply border-l-8 !border-gray-300/60 bg-gray-200/5;
-    }
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
-    .content pre > code[data-line-numbers] {
-        counter-reset: line;
-    }
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
 
-    .content pre > code[data-line-numbers] > span[data-line]::before {
-        counter-increment: line;
-        content: counter(line);
-        @apply mr-8 inline-block w-4 text-left text-[#7ca2dfad];
-    }
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/GeistVF.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-    .content pre > code > span[data-line]::before {
-        content: '';
-        @apply inline-block w-4 text-right;
-    }
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMonoVF.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-    .content pre > code[data-line-numbers-max-digits='2'] > span[data-line]::before {
-        @apply w-8;
-    }
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
 
-    .content code[data-line-numbers-max-digits='3'] > span[data-line]::before {
-        @apply w-12;
-    }
+[data-theme="dark"] {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    @apply border-border outline-ring/50 tracking-tight;
+  }
 }

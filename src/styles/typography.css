@@ -1,0 +1,126 @@
+@reference './global.css';
+
+@layer components {
+  .prose {
+    @apply text-foreground text-base leading-7 [&>link[rel="stylesheet"]+*]:mt-0!;
+
+    p {
+      @apply text-foreground/80 my-5 not-first:mt-5;
+    }
+
+    /* Don't use an <h1> in your posts, one is already generated in blog/[...id].astro */
+    h1 {
+      @apply text-foreground mt-0 mb-6 scroll-mt-32 text-4xl font-medium xl:scroll-mt-20;
+    }
+
+    h2 {
+      @apply text-foreground mt-8 mb-4 scroll-mt-32 text-2xl font-medium xl:scroll-mt-20;
+    }
+
+    h3 {
+      @apply text-foreground mt-6 mb-4 scroll-mt-32 text-xl font-medium xl:scroll-mt-20;
+    }
+
+    h4 {
+      @apply text-foreground mt-6 mb-3 scroll-mt-32 text-lg font-medium xl:scroll-mt-20;
+    }
+
+    h5 {
+      @apply text-foreground mt-5 mb-3 scroll-mt-32 font-medium xl:scroll-mt-20;
+    }
+
+    h6 {
+      @apply text-foreground mt-5 mb-3 scroll-mt-32 font-medium xl:scroll-mt-20;
+    }
+
+    a {
+      @apply text-foreground decoration-muted-foreground hover:decoration-foreground font-medium break-words underline underline-offset-[3px] transition-colors;
+    }
+
+    strong {
+      @apply text-foreground font-medium;
+    }
+
+    ul {
+      @apply marker:text-foreground/30 my-5 ml-6 list-disc [&>li]:mt-2;
+    }
+
+    ol {
+      @apply marker:text-foreground/30 my-5 ml-6 list-decimal [&>li]:mt-2;
+      @apply [&[type='A']]:list-[upper-alpha] [&[type='I']]:list-[upper-roman] [&[type='a']]:list-[lower-alpha] [&[type='i']]:list-[lower-roman];
+    }
+
+    li {
+      @apply text-foreground/80 pl-2 [&>p]:my-0;
+    }
+
+    ul ul,
+    ol ol,
+    ul ol,
+    ol ul {
+      @apply marker:text-foreground/30 my-2 ml-6;
+    }
+
+    code {
+      @apply bg-muted/50 text-foreground relative rounded-sm px-[0.3rem] py-[0.2rem] text-sm font-medium break-words;
+      @apply [&>span[data-line='']>*]:text-(--shiki-light) dark:[&>span[data-line='']>*]:text-(--shiki-dark);
+    }
+
+    blockquote {
+      @apply [&_*]:text-muted-foreground small my-6 border-l-2 pl-6;
+    }
+
+    hr {
+      @apply border-border my-8 border-t;
+    }
+
+    table {
+      @apply my-6 block w-full overflow-x-auto text-sm;
+    }
+
+    thead {
+      @apply border-muted-foreground/30 border-b;
+    }
+
+    th {
+      @apply px-4 py-2 font-medium;
+      @apply text-left [&[align=center]]:text-center [&[align=right]]:text-right;
+    }
+
+    tr {
+      @apply border-muted-foreground/30 border-y first:border-t-0 last:border-b-0;
+    }
+
+    td {
+      @apply fix-margin text-foreground/80 small px-4 py-2 align-top break-words;
+      @apply text-left [&[align=center]]:text-center [&[align=right]]:text-right;
+    }
+
+    img,
+    video,
+    figure,
+    .expressive-code {
+      @apply my-6;
+    }
+
+    summary {
+      @apply [&~*]:small [&~*]:fix-margin;
+    }
+
+    kbd {
+      @apply text-foreground bg-muted border-border rounded-md border px-2 py-1 text-xs font-medium;
+    }
+
+    .katex-display {
+      @apply text-foreground/80 my-6 overflow-x-auto overflow-y-hidden py-2 tracking-normal;
+    }
+  }
+}
+
+@utility fix-margin {
+  @apply [&>*]:first:mt-0! [&>*]:last:mb-0!;
+}
+
+@utility small {
+  @apply text-sm leading-6 [&_code]:text-xs [&_img,video,figure,details,blockquote,.katex-display,.expressive-code]:my-4! [&_li,ol]:mt-0 [&_p]:my-2! [&_ul]:my-0;
+}

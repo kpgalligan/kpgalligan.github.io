@@ -1,22 +1,38 @@
 ---
-import { AppConfig } from '@/utils/AppConfig';
-import Base from '@/layouts/Base.astro';
-import Hero from '@/components/Hero.astro';
-import LatestPosts from '@/components/LatestPosts.astro';
-import { sortPostsByDate } from '@/utils/data.util';
-import { MarkdownInstance } from 'astro';
+import BlogCard from '@/components/BlogCard.astro'
+import Link from '@/components/Link.astro'
+import PageHead from '@/components/PageHead.astro'
+import { buttonVariants } from '@/components/ui/button'
+import { SITE } from '@/consts'
+import Layout from '@/layouts/Layout.astro'
+import { getRecentPosts } from '@/lib/data-utils'
 
-const { title } = AppConfig;
-const { description } = AppConfig;
-
-const allPosts = Object.values(
-	import.meta.glob('./posts/*.md', { eager: true })
-) as MarkdownInstance<any>[];
-allPosts.sort(sortPostsByDate);
-const latestPosts = allPosts.slice(0, 3);
+const blog = await getRecentPosts(SITE.featuredPostCount)
 ---
 
-<Base head={{ title, description }}>
-	<Hero />
-	<LatestPosts posts={latestPosts} />
-</Base>
+<Layout>
+  <PageHead slot="head" title="Home" />
+  <section class="flex flex-col gap-y-4">
+    <h2 class="text-2xl font-medium">Latest posts</h2>
+    <ul class="flex flex-col gap-y-4">
+      {
+        blog.map((post) => (
+          <li>
+            <BlogCard entry={post} />
+          </li>
+        ))
+      }
+    </ul>
+    <div class="flex justify-center">
+      <Link
+        href="/blog"
+        class={buttonVariants({ variant: 'ghost' }) + ' group'}
+      >
+        See all posts <span
+          class="ml-1.5 transition-transform group-hover:translate-x-1"
+          >&rarr;</span
+        >
+      </Link>
+    </div>
+  </section>
+</Layout>
