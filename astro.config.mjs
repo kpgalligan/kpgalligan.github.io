@@ -1,86 +1,54 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-
 import { defineConfig } from 'astro/config';
-
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
-import image from '@astrojs/image';
-import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown';
-import compress from 'astro-compress';
-import { readingTimeRemarkPlugin } from './src/utils/frontmatter.mjs';
-
+import { remarkReadingTime } from './src/utils/readingTime';
+import rehypePrettyCode from 'rehype-pretty-code';
+import vercelStatic from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
+const options = {
+	// Specify the theme to use or a custom theme json, in our case
+	// it will be a moonlight-II theme from
+	// https://github.com/atomiks/moonlight-vscode-theme/blob/master/src/moonlight-ii.json
+	// Callbacks to customize the output of the nodes
+	//theme: json,
+	onVisitLine(node) {
+		// Prevent lines from collapsing in `display: grid` mode, and
+		// allow empty lines to be copy/pasted
+		if (node.children.length === 0) {
+			node.children = [
+				{
+					type: 'text',
+					value: ' '
+				}
+			];
+		}
+	},
+	onVisitHighlightedLine(node) {
+		// Adding a class to the highlighted line
+		node.properties.className = ['highlighted'];
+	}
+};
 
-import { SITE } from './src/config.mjs';
-
-import darkula from "./darcula.json";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const whenExternalScripts = (items = []) =>
-  SITE.googleAnalyticsId ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
-
+// https://astro.build/config
 export default defineConfig({
-  site: SITE.origin,
-  base: SITE.basePathname,
-  trailingSlash: SITE.trailingSlash ? 'always' : 'never',
+	site: 'https://astro-tech-blog-ten.vercel.app/',
 
-  output: 'static',
+	markdown: {
+		syntaxHighlight: false,
+		// Disable syntax built-in syntax hightlighting from astro
+		rehypePlugins: [[rehypePrettyCode, options]],
+		remarkPlugins: [remarkReadingTime]
+	},
 
-  experimental: {
-    assets: true
-  },
-  
-  markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    shikiConfig: {
-      langs: ['kotlin', 'swift'],
-      theme: darkula,
-      wrap: false,
-    },
-  },
+	integrations: [react(), sitemap()],
+	output: 'static',
 
-  integrations: [
-    tailwind({
-      config: {
-        applyBaseStyles: false,
-      },
-    }),
-    sitemap({
-      filter: (page) => page.endsWith("moviedata.json"),
-    }),
-    image({
-      serviceEntryPoint: '@astrojs/image/sharp',
-    }),
-    mdx(),
-
-    ...whenExternalScripts(() =>
-      partytown({
-        config: { forward: ['dataLayer.push'] },
-      })
-    ),
-
-    compress({
-      css: true,
-      html: {
-        removeAttributeQuotes: false,
-      },
-      img: false,
-      js: true,
-      svg: false,
-
-      logger: 1,
-    }),
-    react(),
-  ],
-
-  vite: {
-    resolve: {
-      alias: {
-        '~': path.resolve(__dirname, './src'),
-      },
-    },
-  },
+	adapter: vercelStatic({
+		webAnalytics: {
+			enabled: true
+		}
+	}),
+	vite: {
+		plugins: [tailwindcss()]
+	}
 });

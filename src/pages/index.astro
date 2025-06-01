@@ -1,32 +1,22 @@
 ---
-import { SITE } from '~/config.mjs';
-import Layout from '~/layouts/PageLayout.astro';
+import { AppConfig } from '@/utils/AppConfig';
+import Base from '@/layouts/Base.astro';
+import Hero from '@/components/Hero.astro';
+import LatestPosts from '@/components/LatestPosts.astro';
+import { sortPostsByDate } from '@/utils/data.util';
+import { MarkdownInstance } from 'astro';
 
-import TeamImages from "../components/TeamImages.astro";
-import HeroAbout from "../components/HeroAbout.astro";
-import TopSpacerAstro from "../components/TopSpacerAstro.astro";
-import TitleDetail from "../components/TitleDetail.astro";
+const { title } = AppConfig;
+const { description } = AppConfig;
 
-const meta = {
-  title: SITE.title,
-  description: SITE.description,
-  dontUseTitleTemplate: true,
-};
+const allPosts = Object.values(
+	import.meta.glob('./posts/*.md', { eager: true })
+) as MarkdownInstance<any>[];
+allPosts.sort(sortPostsByDate);
+const latestPosts = allPosts.slice(0, 3);
 ---
 
-<Layout {meta}>
-
-  <TopSpacerAstro/>
-
-  <!-- <HeroAbout/> -->
-
-  <TitleDetail
-    title="Hello! I'm Kevin Galligan!"
-    >This is Natalie and Binky.</TitleDetail>
-  <TeamImages/>
-
-  <TitleDetail
-    title="There's a blog"
-    >You're probably here for <a href="/blog" class="dark:text-cyan-400 text-cyan-600">the blog</a></TitleDetail>
-
-</Layout>
+<Base head={{ title, description }}>
+	<Hero />
+	<LatestPosts posts={latestPosts} />
+</Base>
