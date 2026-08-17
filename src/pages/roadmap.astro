@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Roadmap from "@/components/blocks/Roadmap.astro";
+---
+
+<Layout
+    title="Roadmap - Upgrade CMS"
+    description="See what we're building next for Upgrade CMS"
+>
+    <Header />
+    <main>
+        <section class="py-24 lg:py-32">
+            <div class="container max-w-4xl text-center">
+                <h1 class="text-4xl font-bold tracking-tight sm:text-6xl mb-6">
+                    Product Roadmap
+                </h1>
+                <p class="text-xl text-muted-foreground mb-8">
+                    Transparent development. See what we're working on and
+                    what's coming next.
+                </p>
+            </div>
+        </section>
+
+        <Roadmap />
+
+        <section class="py-24">
+            <div class="container max-w-3xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-6">
+                    Have a Feature Request?
+                </h2>
+                <p class="text-xl text-muted-foreground mb-8">
+                    We'd love to hear your ideas. Submit feature requests and
+                    vote on what matters most to you.
+                </p>
+                <a
+                    href="#"
+                    class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 rounded-md inline-flex items-center justify-center whitespace-nowrap text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                    Submit Feature Request
+                </a>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>

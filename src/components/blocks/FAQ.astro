@@ -1,0 +1,37 @@
+---
+import FAQAccordion from "@/components/FAQAccordion";
+
+const faqs = [
+    {
+        question: "Is Upgrade open source?",
+        answer: "Yes, the core of Upgrade is open source and available on GitHub under the MIT license. You can self-host it for free forever.",
+    },
+    {
+        question: "How does the pricing work?",
+        answer: "We offer a free open-source version for self-hosting. Our Cloud version starts at $29/month and includes managed infrastructure, backups, and priority support.",
+    },
+    {
+        question: "Can I use Upgrade with Next.js?",
+        answer: "Absolutely! Upgrade is API-first and works with any frontend framework, including Next.js, Astro, Remix, Vue, and Svelte.",
+    },
+    {
+        question: "Do you offer enterprise support?",
+        answer: "Yes, we have enterprise plans with SLAs, dedicated support channels, and custom integration assistance. Contact us for more details.",
+    },
+];
+---
+
+<section class="py-24">
+    <div class="container max-w-3xl">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+                Frequently Asked Questions
+            </h2>
+            <p class="text-muted-foreground text-lg">
+                Everything you need to know about Upgrade and our billing.
+            </p>
+        </div>
+
+        <FAQAccordion faqs={faqs} client:load />
+    </div>
+</section>

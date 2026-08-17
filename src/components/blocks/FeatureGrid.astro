@@ -1,0 +1,74 @@
+---
+import { Box, Code2, Globe, Layers, Zap, Shield } from "lucide-react";
+
+const features = [
+    {
+        title: "Astro 5 Ready",
+        description:
+            "Built with the latest Astro version for maximum performance and features.",
+        icon: Box,
+    },
+    {
+        title: "Type Safe",
+        description:
+            "Fully typed with TypeScript for a robust and error-free development experience.",
+        icon: Shield,
+    },
+    {
+        title: "Tailwind 4",
+        description:
+            "Styled with the newest version of Tailwind CSS for a modern developer experience.",
+        icon: Zap,
+    },
+    {
+        title: "Shadcn/UI",
+        description:
+            "Beautifully designed components built with Radix UI and Tailwind CSS.",
+        icon: Layers,
+    },
+    {
+        title: "Content Collections",
+        description:
+            "Manage your content with ease using Astro's powerful Content Collections.",
+        icon: Code2,
+    },
+    {
+        title: "SEO Optimized",
+        description:
+            "Built-in SEO best practices to help your site rank higher in search results.",
+        icon: Globe,
+    },
+];
+---
+
+<section class="py-24 bg-secondary/20">
+    <div class="container">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+                Everything you need to build fast
+            </h2>
+            <p class="text-muted-foreground text-lg">
+                A complete toolkit for developers who want to ship high-quality
+                apps without the hassle.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                features.map((feature) => (
+                    <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary">
+                            <feature.icon className="h-6 w-6" />
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">
+                            {feature.title}
+                        </h3>
+                        <p class="text-muted-foreground">
+                            {feature.description}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

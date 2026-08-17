@@ -1,0 +1,150 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<Layout
+    title="About - Upgrade CMS"
+    description="Learn about Upgrade CMS and our mission"
+>
+    <Header />
+    <main>
+        <section class="py-24 lg:py-32">
+            <div class="container max-w-4xl">
+                <div class="text-center mb-16">
+                    <h1
+                        class="text-4xl font-bold tracking-tight sm:text-6xl mb-6"
+                    >
+                        About Upgrade
+                    </h1>
+                    <p class="text-xl text-muted-foreground">
+                        We're building the CMS that developers deserve.
+                    </p>
+                </div>
+
+                <div class="prose prose-lg dark:prose-invert mx-auto">
+                    <h2>Our Mission</h2>
+                    <p>
+                        Upgrade was born from frustration with existing content
+                        management systems. We believe that CMSs should empower
+                        developers, not constrain them. Our mission is to
+                        provide a modern, flexible, and developer-friendly
+                        platform that scales from small projects to enterprise
+                        applications.
+                    </p>
+
+                    <h2>Why We Built Upgrade</h2>
+                    <p>
+                        Traditional CMSs force you into rigid structures and
+                        outdated workflows. Modern headless CMSs often sacrifice
+                        usability for flexibility. We built Upgrade to bridge
+                        this gap - giving developers the freedom they need while
+                        providing content editors with an intuitive interface.
+                    </p>
+
+                    <h2>Our Values</h2>
+                    <ul>
+                        <li>
+                            <strong>Developer Experience First</strong> - Every decision
+                            prioritizes DX
+                        </li>
+                        <li>
+                            <strong>Open Source</strong> - Core features are free
+                            and open to everyone
+                        </li>
+                        <li>
+                            <strong>Performance</strong> - Built for speed from the
+                            ground up
+                        </li>
+                        <li>
+                            <strong>Community Driven</strong> - We listen to and
+                            learn from our users
+                        </li>
+                    </ul>
+
+                    <h2>The Team</h2>
+                    <p>
+                        Upgrade is built by a distributed team of developers,
+                        designers, and content strategists from around the
+                        world. We're backed by leading investors and supported
+                        by an amazing open-source community.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">
+                            50K+
+                        </div>
+                        <div class="text-muted-foreground">Active Users</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">
+                            14K+
+                        </div>
+                        <div class="text-muted-foreground">GitHub Stars</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-primary mb-2">
+                            99.9%
+                        </div>
+                        <div class="text-muted-foreground">Uptime SLA</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-secondary/20">
+            <div class="container max-w-4xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-6">
+                    Join Our Community
+                </h2>
+                <p class="text-xl text-muted-foreground mb-8">
+                    Connect with thousands of developers building with Upgrade.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a
+                        href="#"
+                        class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 rounded-md inline-flex items-center justify-center whitespace-nowrap text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                        Join Discord
+                    </a>
+                    <a
+                        href="#"
+                        class="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 px-8 rounded-md inline-flex items-center justify-center whitespace-nowrap text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .prose {
+        max-width: 65ch;
+    }
+    .prose h2 {
+        margin-top: 2em;
+        margin-bottom: 1em;
+        font-size: 1.5em;
+        font-weight: 700;
+    }
+    .prose p {
+        margin-bottom: 1.25em;
+        line-height: 1.75;
+    }
+    .prose ul {
+        margin-top: 1.25em;
+        margin-bottom: 1.25em;
+        list-style-type: disc;
+        padding-left: 1.625em;
+    }
+    .prose li {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+</style>

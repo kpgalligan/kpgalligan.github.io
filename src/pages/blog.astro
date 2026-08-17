@@ -1,0 +1,179 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getCollection } from "astro:content";
+
+// Get all blog posts and sort by date (newest first)
+const allPosts = await getCollection("blog");
+const posts = allPosts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// Extract unique categories for filter buttons
+const categories = [...new Set(posts.map((post) => post.data.category))];
+---
+
+<Layout
+    title="Blog - Upgrade CMS"
+    description="Latest news, tutorials, and insights from the Upgrade team"
+>
+    <Header />
+    <main>
+        <section class="py-24 lg:py-32">
+            <div class="container max-w-4xl">
+                <div class="text-center mb-16">
+                    <h1
+                        class="text-4xl font-bold tracking-tight sm:text-6xl mb-6"
+                    >
+                        Blog
+                    </h1>
+                    <p class="text-xl text-muted-foreground">
+                        Latest news, tutorials, and insights from the Upgrade
+                        team.
+                    </p>
+                </div>
+
+                <div
+                    class="flex gap-4 mb-12 flex-wrap justify-center"
+                    id="category-filters"
+                >
+                    <button
+                        class="category-btn px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium"
+                        data-category="all"
+                    >
+                        All Posts
+                    </button>
+                    {
+                        categories.map((category) => (
+                            <button
+                                class="category-btn px-4 py-2 rounded-md hover:bg-accent text-sm font-medium"
+                                data-category={category}
+                            >
+                                {category}
+                            </button>
+                        ))
+                    }
+                </div>
+
+                <div class="space-y-8" id="posts-container">
+                    {
+                        posts.map((post) => (
+                            <article
+                                class="post-card bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow"
+                                data-category={post.data.category}
+                            >
+                                <div class="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+                                        {post.data.category}
+                                    </span>
+                                    <time
+                                        datetime={post.data.pubDate.toISOString()}
+                                    >
+                                        {post.data.pubDate.toLocaleDateString(
+                                            "en-US",
+                                            {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                            },
+                                        )}
+                                    </time>
+                                    {post.data.readTime && (
+                                        <>
+                                            <span>·</span>
+                                            <span>{post.data.readTime}</span>
+                                        </>
+                                    )}
+                                </div>
+                                <h2 class="text-2xl font-bold mb-3 hover:text-primary transition-colors">
+                                    <a href={`/blog/${post.id}`}>
+                                        {post.data.title}
+                                    </a>
+                                </h2>
+                                <p class="text-muted-foreground mb-4">
+                                    {post.data.excerpt}
+                                </p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary">
+                                            {post.data.author
+                                                .split(" ")
+                                                .map((n: string) => n[0])
+                                                .join("")}
+                                        </div>
+                                        <span class="font-medium">
+                                            {post.data.author}
+                                        </span>
+                                    </div>
+                                    <a
+                                        href={`/blog/${post.id}`}
+                                        class="text-primary hover:underline font-medium"
+                                    >
+                                        Read more →
+                                    </a>
+                                </div>
+                            </article>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-secondary/20">
+            <div class="container max-w-3xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-6">
+                    Subscribe to Our Newsletter
+                </h2>
+                <p class="text-xl text-muted-foreground mb-8">
+                    Get the latest updates, tutorials, and news delivered to
+                    your inbox.
+                </p>
+                <form class="flex gap-4 max-w-md mx-auto">
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        class="flex-1 h-12 px-4 rounded-md border border-input bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    />
+                    <button
+                        type="submit"
+                        class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 rounded-md inline-flex items-center justify-center whitespace-nowrap text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<script>
+    // Category filter functionality
+    const filterButtons = document.querySelectorAll(".category-btn");
+    const postCards = document.querySelectorAll(".post-card");
+
+    filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const category = button.getAttribute("data-category");
+
+            // Update active button styles
+            filterButtons.forEach((btn) => {
+                btn.classList.remove("bg-primary", "text-primary-foreground");
+                btn.classList.add("hover:bg-accent");
+            });
+            button.classList.add("bg-primary", "text-primary-foreground");
+            button.classList.remove("hover:bg-accent");
+
+            // Filter posts
+            postCards.forEach((card) => {
+                const postCategory = card.getAttribute("data-category");
+                if (category === "all" || postCategory === category) {
+                    (card as HTMLElement).style.display = "block";
+                } else {
+                    (card as HTMLElement).style.display = "none";
+                }
+            });
+        });
+    });
+</script>
