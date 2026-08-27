@@ -5,6 +5,7 @@ author: "Sarah Chen"
 category: "Product Updates"
 excerpt: "We're excited to announce the release of Upgrade CMS 2.0 with major performance improvements and new features."
 readTime: "5 min read"
+youtubeUrl: "https://www.youtube.com/watch?v=C2_2nOnXNqM"
 ---
 
 # Introducing Upgrade CMS 2.0

@@ -1,0 +1,66 @@
+---
+interface Props {
+    url: string;
+    title?: string;
+}
+
+const { url, title = "YouTube video player" } = Astro.props;
+
+/**
+ * Accepts the shapes YouTube hands out when sharing:
+ * watch?v=ID, youtu.be/ID, /embed/ID, /shorts/ID, /live/ID, or a bare ID.
+ */
+function parseVideo(input: string): { id: string; start?: string } | null {
+    const trimmed = input.trim();
+    if (/^[\w-]{11}$/.test(trimmed)) return { id: trimmed };
+
+    let parsed: URL;
+    try {
+        parsed = new URL(trimmed);
+    } catch {
+        return null;
+    }
+
+    const host = parsed.hostname.replace(/^www\./, "");
+    const start = parsed.searchParams.get("t") || parsed.searchParams.get("start") || undefined;
+
+    let id: string | null = null;
+    if (host === "youtu.be") {
+        id = parsed.pathname.split("/")[1] || null;
+    } else if (host === "youtube.com" || host === "m.youtube.com" || host === "youtube-nocookie.com") {
+        id =
+            parsed.searchParams.get("v") ||
+            parsed.pathname.match(/^\/(?:embed|shorts|v|live)\/([\w-]+)/)?.[1] ||
+            null;
+    }
+
+    if (!id || !/^[\w-]{11}$/.test(id)) return null;
+    return { id, start: start?.replace(/\D/g, "") || undefined };
+}
+
+const video = parseVideo(url);
+if (!video) {
+    console.warn(`[YouTubeEmbed] Could not parse a video ID from "${url}" — skipping embed.`);
+}
+
+const src = video
+    ? `https://www.youtube-nocookie.com/embed/${video.id}${video.start ? `?start=${video.start}` : ""}`
+    : null;
+---
+
+{
+    src && (
+        <div class="aspect-video w-full overflow-hidden rounded-xl border border-border bg-secondary">
+            <iframe
+                class="h-full w-full"
+                src={src}
+                title={title}
+                loading="lazy"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+            />
+        </div>
+    )
+}
