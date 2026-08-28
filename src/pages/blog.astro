@@ -15,8 +15,8 @@ const categories = [...new Set(posts.map((post) => post.data.category))];
 ---
 
 <Layout
-    title="Blog - Upgrade CMS"
-    description="Latest news, tutorials, and insights from the Upgrade team"
+    title="Writing & talks - Kevin Galligan"
+    description="Talks and writing on native mobile development, Kotlin Multiplatform, and AI-assisted engineering."
 >
     <Header />
     <main>
@@ -29,8 +29,8 @@ const categories = [...new Set(posts.map((post) => post.data.category))];
                         Blog
                     </h1>
                     <p class="text-xl text-muted-foreground">
-                        Latest news, tutorials, and insights from the Upgrade
-                        team.
+                        Talks and writing on native mobile development,
+                        Kotlin Multiplatform, and AI-assisted engineering.
                     </p>
                 </div>
 
@@ -120,30 +120,6 @@ const categories = [...new Set(posts.map((post) => post.data.category))];
             </div>
         </section>
 
-        <section class="py-24 bg-secondary/20">
-            <div class="container max-w-3xl text-center">
-                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-6">
-                    Subscribe to Our Newsletter
-                </h2>
-                <p class="text-xl text-muted-foreground mb-8">
-                    Get the latest updates, tutorials, and news delivered to
-                    your inbox.
-                </p>
-                <form class="flex gap-4 max-w-md mx-auto">
-                    <input
-                        type="email"
-                        placeholder="Enter your email"
-                        class="flex-1 h-12 px-4 rounded-md border border-input bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    />
-                    <button
-                        type="submit"
-                        class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 rounded-md inline-flex items-center justify-center whitespace-nowrap text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                        Subscribe
-                    </button>
-                </form>
-            </div>
-        </section>
     </main>
     <Footer />
 </Layout>

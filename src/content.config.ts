@@ -13,6 +13,7 @@ const blog = defineCollection({
         readTime: z.string().optional(),
         heroImage: z.string().optional(),
         youtubeUrl: z.string().optional(),
+        aiDeclaration: z.string().optional(),
     }),
 });
 

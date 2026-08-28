@@ -3,20 +3,19 @@ import Layout from "../layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Hero from "@/components/blocks/Hero.astro";
-import FeatureGrid from "@/components/blocks/FeatureGrid.astro";
-import Pricing from "@/components/blocks/Pricing.astro";
-import Roadmap from "@/components/blocks/Roadmap.astro";
-import FAQ from "@/components/blocks/FAQ.astro";
+import WhatIDo from "@/components/blocks/WhatIDo.astro";
+import RecentPosts from "@/components/blocks/RecentPosts.astro";
 ---
 
-<Layout title="Upgrade - Developer-first CMS">
+<Layout
+	title="Kevin Galligan"
+	description="Engineer, engineering leader, and founder. Native mobile, Kotlin Multiplatform, and developer tooling. New York, NY."
+>
 	<Header />
 	<main>
 		<Hero />
-		<FeatureGrid />
-		<Roadmap />
-		<Pricing />
-		<FAQ />
+		<WhatIDo />
+		<RecentPosts />
 	</main>
 	<Footer />
 </Layout>

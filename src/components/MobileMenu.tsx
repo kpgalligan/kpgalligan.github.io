@@ -55,24 +55,6 @@ export default function MobileMenu({ links }: MobileMenuProps) {
                                     {link.label}
                                 </a>
                             ))}
-
-                            {/* Mobile Auth Buttons */}
-                            <div className="pt-4 space-y-2 border-t border-border mt-4">
-                                <a
-                                    href="/login"
-                                    className="block w-full px-4 py-3 text-center rounded-md text-base font-medium border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    Log In
-                                </a>
-                                <a
-                                    href="/register"
-                                    className="block w-full px-4 py-3 text-center rounded-md text-base font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    Start Free Trial
-                                </a>
-                            </div>
                         </nav>
                     </div>
                 </>
