@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import Timeline from "@/components/blocks/Timeline.astro";
 ---
 
 <Layout
@@ -18,107 +19,18 @@ import Footer from "@/components/Footer.astro";
                     >
                         Kevin Galligan
                     </h1>
-                    <p class="text-xl text-muted-foreground">
+                    <p class="text-xl text-muted-foreground mb-4">
                         I've been coding for decades. My Mom taught me Basic when I was 7, and I've been doing it more or less since then. I've started businesses, managed dev teams, and done a whole lot of open source and content over the years.
                     </p>
-                    <p class="text-xl text-muted-foreground">
+                    <p class="text-xl text-muted-foreground mb-4">
                     I love making things.
                     </p>
-                    <p class="text-xl text-muted-foreground">
+                    <p class="text-xl text-muted-foreground mb-4">
                     Currently focused on how AI will reshape mobile development, but also AI development in general.
                     </p>
                 </div>
 
-                <div
-                    class="prose prose-invert prose-lg max-w-none
-                    prose-headings:font-bold prose-headings:tracking-tight
-                    prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
-                    prose-p:text-muted-foreground prose-p:leading-relaxed
-                    prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                    prose-ul:text-muted-foreground prose-li:my-1
-                    prose-strong:text-foreground"
-                >
-                    <p>
-                        I've been doing Android since before there were phones —
-                        first clients in 2010, and Touchlab formally in 2011.
-                        Since then my work has mostly been about one question:
-                        how do you build two native mobile apps without doing
-                        everything twice?
-                    </p>
-
-                    <h2>Now</h2>
-                    <p>
-                        Co-founder and CTO of <strong>Ntive Labs</strong>, with
-                        the team that built Touchlab — native mobile since 2011,
-                        AI-native since 2024. Our first product is
-                        <strong>Parive</strong>, which uses layered AI analysis
-                        to understand a pair of native iOS and Android apps and
-                        align them concept by concept: every screen, feature,
-                        and behavior, with a severity assigned to each
-                        difference. It then coordinates planning and closing
-                        those gaps.
-                    </p>
-                    <p>
-                        AI has changed how I work day to day. I barely write
-                        code by hand anymore — I spend my time on structure,
-                        context, and review, which turns out to be where the
-                        judgment actually lives.
-                    </p>
-
-                    <h2>Before</h2>
-                    <p>
-                        I started <strong>Touchlab</strong> in 2011, when we
-                        were New York's Android shop and nearly everyone else
-                        was building iPhone apps. Over the years the work moved
-                        from Android consulting into shared-code tooling for
-                        native mobile teams, and I went all in on Kotlin
-                        Multiplatform in 2018 — though the same idea goes back
-                        further, to the J2ObjC work that preceded it.
-                    </p>
-                    <p>Some of what came out of that:</p>
-                    <ul>
-                        <li>
-                            The first Kotlin Multiplatform app in the App Store,
-                            and the first iOS app shipping Compose
-                        </li>
-                        <li>
-                            <strong>SKIE</strong>, which makes the Swift-facing
-                            API generated from Kotlin considerably less painful
-                        </li>
-                        <li>
-                            Generics in Kotlin/Native's Objective-C output, plus
-                            Xcode debugger and SPM publishing tooling
-                        </li>
-                        <li>
-                            A long-running series of writing and talks on why
-                            teams struggle to scale KMP — which turned out to be
-                            about workflow and people more than tooling
-                        </li>
-                    </ul>
-
-                    <h2>Community</h2>
-                    <p>
-                        I helped start <strong>droidcon New York</strong> and
-                        ran the first three conferences, and ran the New York
-                        Android meetup for a long stretch. I still speak
-                        regularly — mostly about native mobile, Kotlin
-                        Multiplatform, and lately about what AI does to mobile
-                        development. Recent talks are on
-                        <a href="/blog">the blog</a>.
-                    </p>
-
-                    <h2>Education</h2>
-                    <p>Colgate University, 1994–1998.</p>
-
-                    <h2>Elsewhere</h2>
-                    <p>
-                        <a
-                            href="https://www.linkedin.com/in/kpgalligan/"
-                            target="_blank"
-                            rel="noreferrer">LinkedIn</a
-                        >
-                    </p>
-                </div>
+                <Timeline />
             </div>
         </section>
     </main>

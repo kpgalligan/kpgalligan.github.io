@@ -1,0 +1,58 @@
+---
+const entries = [
+    {
+        range: "2024 – Present",
+        title: "AI-native mobile",
+        body: "Co-founded Ntive Labs with the Touchlab team leadership and went all in on figuring out how AI will impact mobile development. Building custom coding agent tools, at scale.",
+    },
+    {
+        range: "2018 – 2024",
+        title: "Kotlin Multiplatform",
+        body: "Jumped into KMP at the beginning, and reshaped Touchlab to be the leading KMP shop. With the Touchlab team, shipped the first KMP app in the App Store, built much of the early foundational libraries and tools for the ecosystem. Highlights: SKIE, the Xcode/Kotlin plugin, native drivers for SqlDelight, CrashKiOS, KMMBridge. Endless conference talks and blog posts promoting the platform. Spent a lot of time embedded with client teams integrating KMP into their workflows.",
+    },
+    {
+        range: "2011 – 2018",
+        title: "Touchlab and the Android years",
+        body: "Started Touchlab as New York's Android shop when nearly everyone else was building for iPhone. Grew the team, ran the NYC Android meetup. Rode StartupBus 2012 (https://www.youtube.com/watch?v=oeqTCpkGKoY). Launched Droidcon New York in 2014. Built apps for clients from startups to Fortune 500.",
+    },
+    {
+        range: "2008 – 2011",
+        title: "Lifestyle businesses, coworking, and early Android",
+        body: "Built a business hosting large marketing datasets, with fast geographical searches. Only so many potential customers. Learned Android for fun. Submitted to the first Android Developer Contest. Did not win ;)",
+    },
+    {
+        range: "2006 - 2008",
+        title: "Startups",
+        body: "Medical startup (short-lived), then trading system at a fintech.",
+    },
+    {
+        range: "(Pre-history)",
+        title: "Getting started",
+        body: "Basic on a VIC-20, courtesy of my Mom and uncle Noel. C++ game hacking. Colgate for college, Java, finance at a bank.",
+    },
+];
+---
+
+<div class="mt-8">
+    <h2 class="text-2xl font-bold tracking-tight mb-10">Timeline</h2>
+
+    <ol class="relative border-l border-border ml-3 space-y-12">
+        {
+            entries.map((entry) => (
+                <li class="pl-8 relative">
+                    <span
+                        class="absolute -left-[7px] top-1.5 h-3.5 w-3.5 rounded-full bg-primary ring-4 ring-background"
+                        aria-hidden="true"
+                    />
+                    <p class="text-sm font-mono uppercase tracking-wider text-primary mb-1">
+                        {entry.range}
+                    </p>
+                    <h3 class="text-xl font-semibold mb-2">{entry.title}</h3>
+                    <p class="text-muted-foreground leading-relaxed">
+                        {entry.body}
+                    </p>
+                </li>
+            ))
+        }
+    </ol>
+</div>
