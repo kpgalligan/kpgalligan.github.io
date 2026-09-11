@@ -25,9 +25,5 @@
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  }
+  "packageManager": "pnpm@10.30.3"
 }
