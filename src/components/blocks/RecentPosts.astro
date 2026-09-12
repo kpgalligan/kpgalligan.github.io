@@ -1,41 +1,31 @@
 ---
 import { getCollection } from "astro:content";
+import SectionHeading from "@/components/SectionHeading.astro";
+import PostRow from "@/components/PostRow.astro";
 
-const posts = (await getCollection("blog"))
+const allPosts = await getCollection("blog");
+const posts = allPosts
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 3);
+    .slice(0, 5);
 ---
 
-<section class="py-24">
-    <div class="container max-w-4xl">
-        <div class="flex items-baseline justify-between mb-12">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
-                Recent writing & talks
-            </h2>
-            <a href="/blog" class="text-primary hover:underline font-medium">
-                View all →
-            </a>
-        </div>
+<section id="writing" class="mx-auto max-w-3xl px-6 pb-20">
+    <SectionHeading eyebrow="Recent writing & talks" count={allPosts.length} />
 
-        <div class="space-y-6">
-            {
-                posts.map((post) => (
-                    <article class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
-                        <div class="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                            <span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-                                {post.data.category}
-                            </span>
-                            {post.data.readTime && (
-                                <span>{post.data.readTime}</span>
-                            )}
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 hover:text-primary transition-colors">
-                            <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                        </h3>
-                        <p class="text-muted-foreground">{post.data.excerpt}</p>
-                    </article>
-                ))
-            }
-        </div>
+    <div>
+        {posts.map((post) => <PostRow post={post} />)}
     </div>
+
+    {
+        allPosts.length > posts.length && (
+            <div class="mt-6">
+                <a
+                    href="/blog"
+                    class="font-mono text-xs text-ink-soft transition-colors hover:text-signal"
+                >
+                    View all {allPosts.length} posts →
+                </a>
+            </div>
+        )
+    }
 </section>

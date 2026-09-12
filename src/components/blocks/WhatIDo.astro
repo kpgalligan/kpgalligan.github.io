@@ -1,49 +1,37 @@
 ---
-import { Code2, Users, Rocket } from "lucide-react";
+import SectionHeading from "@/components/SectionHeading.astro";
 
 const areas = [
     {
         title: "Engineering",
-        icon: Code2,
         body: "Deep native mobile — Android from the beginning, iOS alongside it, and Kotlin Multiplatform since 2018. I've shipped developer tooling used across that ecosystem, including SKIE and the first Kotlin Multiplatform app in the App Store. Still hands-on, though these days that increasingly means directing AI agents rather than typing every line.",
     },
     {
         title: "Technical leadership",
-        icon: Users,
         body: "I ran Touchlab for more than a decade: hiring, setting technical direction, and deciding where to place bets. Much of the work was embedding with client engineering teams on architecture and adoption decisions, which is as much about how a team actually operates as it is about the code.",
     },
     {
         title: "Building from zero",
-        icon: Rocket,
         body: "Founded Touchlab in 2011 and co-founded Ntive Labs. I also helped start droidcon New York and ran its first three conferences, plus the NYC Android meetup — an education in budgets, sponsors, vendors, and shipping something against a hard deadline.",
     },
 ];
 ---
 
-<section class="py-24 bg-secondary/20">
-    <div class="container">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-                What I do
-            </h2>
-            <p class="text-muted-foreground text-lg">
-                I've worked across the range — writing the code, leading the
-                people, and running the business.
-            </p>
-        </div>
+<section class="mx-auto max-w-3xl px-6 pb-20">
+    <SectionHeading eyebrow="What I do" />
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {
-                areas.map((area) => (
-                    <div class="bg-card border border-border rounded-lg p-6">
-                        <div class="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 text-primary">
-                            <area.icon className="h-6 w-6" />
-                        </div>
-                        <h3 class="text-xl font-semibold mb-2">{area.title}</h3>
-                        <p class="text-muted-foreground">{area.body}</p>
-                    </div>
-                ))
-            }
-        </div>
-    </div>
+    <dl>
+        {
+            areas.map((area) => (
+                <div class="grid gap-2 border-b border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-6">
+                    <dt class="font-mono text-xs uppercase tracking-[0.2em] text-ink-soft">
+                        {area.title}
+                    </dt>
+                    <dd class="text-sm leading-relaxed text-ink-soft">
+                        {area.body}
+                    </dd>
+                </div>
+            ))
+        }
+    </dl>
 </section>

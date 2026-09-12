@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import PostRow from "@/components/PostRow.astro";
 import { getCollection } from "astro:content";
 
 // Get all blog posts and sort by date (newest first)
@@ -18,137 +18,75 @@ const categories = [...new Set(posts.map((post) => post.data.category))];
     title="Writing & talks - Kevin Galligan"
     description="Talks and writing on native mobile development, Kotlin Multiplatform, and AI-assisted engineering."
 >
-    <Header />
-    <main>
-        <section class="py-24 lg:py-32">
-            <div class="container max-w-4xl">
-                <div class="text-center mb-16">
-                    <h1
-                        class="text-4xl font-bold tracking-tight sm:text-6xl mb-6"
-                    >
-                        Blog
-                    </h1>
-                    <p class="text-xl text-muted-foreground">
-                        Talks and writing on native mobile development,
-                        Kotlin Multiplatform, and AI-assisted engineering.
-                    </p>
-                </div>
+    <section class="mx-auto max-w-3xl px-6 pt-16 pb-24 sm:pt-24">
+        <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-ink-soft">
+            Writing &amp; talks
+        </p>
 
-                <div
-                    class="flex gap-4 mb-12 flex-wrap justify-center"
-                    id="category-filters"
-                >
+        <h1
+            class="max-w-xl font-display text-3xl font-medium text-ink sm:text-4xl"
+        >
+            Talks and writing on native mobile development, Kotlin
+            Multiplatform, and AI-assisted engineering.
+        </h1>
+
+        <div class="mt-10 mb-10 flex flex-wrap gap-2" id="category-filters">
+            <button
+                class="category-btn rounded-full border border-signal bg-signal px-3 py-1 font-mono text-xs text-paper transition-colors"
+                data-category="all"
+            >
+                All
+            </button>
+            {
+                categories.map((category) => (
                     <button
-                        class="category-btn px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium"
-                        data-category="all"
+                        class="category-btn rounded-full border border-line px-3 py-1 font-mono text-xs text-ink-soft transition-colors hover:border-signal hover:text-signal"
+                        data-category={category}
                     >
-                        All Posts
+                        {category}
                     </button>
-                    {
-                        categories.map((category) => (
-                            <button
-                                class="category-btn px-4 py-2 rounded-md hover:bg-accent text-sm font-medium"
-                                data-category={category}
-                            >
-                                {category}
-                            </button>
-                        ))
-                    }
-                </div>
+                ))
+            }
+        </div>
 
-                <div class="space-y-8" id="posts-container">
-                    {
-                        posts.map((post) => (
-                            <article
-                                class="post-card bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow"
-                                data-category={post.data.category}
-                            >
-                                <div class="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                                    <span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
-                                        {post.data.category}
-                                    </span>
-                                    <time
-                                        datetime={post.data.pubDate.toISOString()}
-                                    >
-                                        {post.data.pubDate.toLocaleDateString(
-                                            "en-US",
-                                            {
-                                                year: "numeric",
-                                                month: "long",
-                                                day: "numeric",
-                                            },
-                                        )}
-                                    </time>
-                                    {post.data.readTime && (
-                                        <>
-                                            <span>·</span>
-                                            <span>{post.data.readTime}</span>
-                                        </>
-                                    )}
-                                </div>
-                                <h2 class="text-2xl font-bold mb-3 hover:text-primary transition-colors">
-                                    <a href={`/blog/${post.id}`}>
-                                        {post.data.title}
-                                    </a>
-                                </h2>
-                                <p class="text-muted-foreground mb-4">
-                                    {post.data.excerpt}
-                                </p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary">
-                                            {post.data.author
-                                                .split(" ")
-                                                .map((n: string) => n[0])
-                                                .join("")}
-                                        </div>
-                                        <span class="font-medium">
-                                            {post.data.author}
-                                        </span>
-                                    </div>
-                                    <a
-                                        href={`/blog/${post.id}`}
-                                        class="text-primary hover:underline font-medium"
-                                    >
-                                        Read more →
-                                    </a>
-                                </div>
-                            </article>
-                        ))
-                    }
-                </div>
-            </div>
-        </section>
+        <SectionHeading eyebrow="All posts" count={posts.length} />
 
-    </main>
-    <Footer />
+        <div id="posts-container">
+            {posts.map((post) => <PostRow post={post} />)}
+        </div>
+    </section>
 </Layout>
 
 <script>
-    // Category filter functionality
-    const filterButtons = document.querySelectorAll(".category-btn");
-    const postCards = document.querySelectorAll(".post-card");
+    // Category filter. Rows are `display: grid`, so toggle the inline style
+    // back to "" rather than "block" — "block" would collapse the columns.
+    const filterButtons =
+        document.querySelectorAll<HTMLButtonElement>(".category-btn");
+    const postCards = document.querySelectorAll<HTMLElement>(".post-card");
+
+    const activeClasses = ["border-signal", "bg-signal", "text-paper"];
+    const idleClasses = [
+        "border-line",
+        "text-ink-soft",
+        "hover:border-signal",
+        "hover:text-signal",
+    ];
 
     filterButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            const category = button.getAttribute("data-category");
+            const category = button.dataset.category;
 
-            // Update active button styles
             filterButtons.forEach((btn) => {
-                btn.classList.remove("bg-primary", "text-primary-foreground");
-                btn.classList.add("hover:bg-accent");
+                btn.classList.remove(...activeClasses);
+                btn.classList.add(...idleClasses);
             });
-            button.classList.add("bg-primary", "text-primary-foreground");
-            button.classList.remove("hover:bg-accent");
+            button.classList.remove(...idleClasses);
+            button.classList.add(...activeClasses);
 
-            // Filter posts
             postCards.forEach((card) => {
-                const postCategory = card.getAttribute("data-category");
-                if (category === "all" || postCategory === category) {
-                    (card as HTMLElement).style.display = "block";
-                } else {
-                    (card as HTMLElement).style.display = "none";
-                }
+                const matches =
+                    category === "all" || card.dataset.category === category;
+                card.style.display = matches ? "" : "none";
             });
         });
     });

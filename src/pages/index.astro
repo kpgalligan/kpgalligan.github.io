@@ -1,20 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import Hero from "@/components/blocks/Hero.astro";
-import WhatIDo from "@/components/blocks/WhatIDo.astro";
 import RecentPosts from "@/components/blocks/RecentPosts.astro";
 ---
 
 <Layout
-	title="Kevin Galligan"
-	description="Engineer, engineering leader, and founder. Native mobile, Kotlin Multiplatform, and developer tooling. New York, NY."
+    title="Kevin Galligan"
+    description="Engineer, engineering leader, and founder. Native mobile, Kotlin Multiplatform, and developer tooling. New York, NY."
 >
-	<Header />
-	<main>
-		<Hero />
-		<RecentPosts />
-	</main>
-	<Footer />
+    <Hero />
+    <RecentPosts />
 </Layout>

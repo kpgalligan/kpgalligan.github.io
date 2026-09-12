@@ -1,79 +1,53 @@
 ---
-import { Button } from "@/components/ui/button";
-import MobileMenu from "@/components/MobileMenu";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import { SITE, NAV_LINKS } from "@/site.config";
 
-const navLinks = [
-    { href: "/blog", label: "Blog" },
-];
-
-// Icon bodies are 24x24 stroke icons: lucide for LinkedIn, GitHub, and
-// Email; tabler for Bluesky and X. The <svg> wrapper below supplies the stroke
-// attributes, so each body is just the paths.
-const socialLinks = [
-    {
-        href: "https://www.linkedin.com/in/kpgalligan/",
-        label: "LinkedIn",
-        icon: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2a2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6M2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>',
-    },
-    {
-        href: "https://github.com/kpgalligan",
-        label: "GitHub",
-        icon: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5c.08-1.25-.27-2.48-1-3.5c.28-1.15.28-2.35 0-3.5c0 0-1 0-3 1.5c-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5c-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
-    },
-    {
-        href: "https://bsky.app/profile/kpgalligan.bsky.social",
-        label: "Bluesky",
-        icon: '<path d="M6.335 5.144C4.681 3.945 2 3.017 2 5.97c0 .59.35 4.953.556 5.661C3.269 14.094 5.686 14.381 8 14c-4.045.665-4.889 3.208-2.667 5.41C6.363 20.428 7.246 21 8 21c2 0 3.134-2.769 3.5-3.5q.5-1 .5-1.5q0 .5.5 1.5c.366.731 1.5 3.5 3.5 3.5c.754 0 1.637-.571 2.667-1.59C20.889 17.207 20.045 14.664 16 14c2.314.38 4.73.094 5.444-2.369c.206-.708.556-5.072.556-5.661c0-2.953-2.68-2.025-4.335-.826C15.372 6.806 12.905 10.192 12 12c-.905-1.808-3.372-5.194-5.665-6.856"/>',
-    },
-    {
-        href: "https://x.com/kpgalligan",
-        label: "X (Twitter)",
-        icon: '<path d="m4 4l11.733 16H20L8.267 4zm0 16l6.768-6.768m2.46-2.46L20 4"/>',
-    },
-    {
-        href: "mailto:kgalligan@gmail.com",
-        label: "Email",
-        icon: '<path d="m22 7l-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/>',
-    },
-];
+const currentPath = Astro.url.pathname;
 ---
 
 <header
-    class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+    class="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur"
 >
-    <div class="container flex h-14 max-w-screen-2xl items-center">
-        <!-- Logo -->
-        <div class="mr-4 flex">
-            <a class="mr-6 flex items-center space-x-2" href="/">
-                <span class="hidden font-bold sm:inline-block"> Kevin Galligan </span>
-            </a>
-        </div>
+    <div
+        class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-4"
+    >
+        <a href="/" class="font-display text-lg font-medium text-ink">
+            {SITE.name}
+        </a>
 
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex items-center gap-6 text-sm">
-            <a
-                class="transition-colors hover:text-foreground/80 text-foreground/60"
-                href="/blog">Blog</a
-            >
-        </nav>
+        <nav class="flex items-center gap-5" aria-label="Primary">
+            {
+                NAV_LINKS.map((link) => {
+                    const isActive =
+                        currentPath === link.href ||
+                        currentPath.startsWith(`${link.href}/`);
+                    return (
+                        <a
+                            href={link.href}
+                            aria-current={isActive ? "page" : undefined}
+                            class:list={[
+                                "font-mono text-xs uppercase tracking-wide transition-colors",
+                                isActive
+                                    ? "text-signal"
+                                    : "text-ink-soft hover:text-ink",
+                            ]}
+                        >
+                            {link.label}
+                        </a>
+                    );
+                })
+            }
 
-        <div
-            class="flex flex-1 items-center justify-between space-x-2 md:justify-end"
-        >
-            <div class="w-full flex-1 md:w-auto md:flex-none">
-                <!-- Search placeholder -->
-            </div>
-
-            <!-- Social links -->
-            <nav class="flex items-center gap-1" aria-label="Social links">
+            {/* Below sm these live in the footer instead. */}
+            <span class="hidden items-center gap-1 sm:flex">
                 {
-                    socialLinks.map(({ href, label, icon }) => (
+                    SITE.social.map(({ href, label, icon }) => (
                         <a
                             href={href}
                             target={href.startsWith("mailto:") ? undefined : "_blank"}
                             rel="noreferrer"
                             title={label}
-                            class="inline-flex h-9 w-9 items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            class="inline-flex h-8 w-8 items-center justify-center rounded-full text-ink-soft transition-colors hover:text-signal"
                         >
                             <span class="sr-only">{label}</span>
                             <svg
@@ -83,7 +57,7 @@ const socialLinks = [
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
+                                stroke-width="1.75"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 class="h-4 w-4"
@@ -93,10 +67,9 @@ const socialLinks = [
                         </a>
                     ))
                 }
-            </nav>
+            </span>
 
-            <!-- Mobile Menu -->
-            <MobileMenu links={navLinks} client:load />
-        </div>
+            <ThemeToggle />
+        </nav>
     </div>
 </header>

@@ -1,14 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
 import YouTubeEmbed from "@/components/YouTubeEmbed.astro";
+import { formatDate } from "@/utils/formatDate";
 import { getCollection, render } from "astro:content";
 import fs from "node:fs";
 
 // Inlined rather than <img src="/svg/robot.svg"> so the icon inherits
 // currentColor from the surrounding text — an <img> would render it black
-// against the dark theme. Sizing comes from the wrapper, not the file.
+// regardless of theme. Sizing comes from the wrapper, not the file.
 const robotIcon = fs
     .readFileSync(new URL("../../../public/svg/robot.svg", import.meta.url), "utf-8")
     .replace(/\s(?:width|height)="\d+"/g, "");
@@ -25,164 +24,89 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, pubDate, author, category, readTime, youtubeUrl, aiDeclaration } =
     post.data;
+
+const formattedDate = formatDate(pubDate);
 ---
 
 <Layout
     title={`${title} - Kevin Galligan`}
     description={post.data.excerpt || `${title} - Kevin Galligan`}
 >
-    <Header />
-    <main class="py-24 lg:py-32">
-        <article class="container max-w-3xl">
-            <!-- Back Link -->
+    <article class="mx-auto max-w-3xl px-6 pt-16 pb-24 sm:pt-24">
+        <a
+            href="/blog"
+            class="font-mono text-xs text-ink-soft transition-colors hover:text-signal"
+        >
+            ← All posts
+        </a>
+
+        <h1
+            class="mt-6 max-w-2xl font-display text-3xl font-medium text-ink sm:text-4xl"
+        >
+            {title}
+        </h1>
+
+        <dl
+            class="mt-6 flex flex-wrap gap-x-8 gap-y-2 border-y border-line py-4 font-mono text-xs text-ink-soft"
+        >
+            <div><dt class="inline">By —</dt><dd class="inline"> {author}</dd></div>
+            <div>
+                <dt class="inline">Date —</dt>
+                <dd class="inline">
+                    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+                </dd>
+            </div>
+            <div><dt class="inline">Filed —</dt><dd class="inline"> {category}</dd></div>
+            {
+                readTime && (
+                    <div>
+                        <dt class="inline">Length —</dt>
+                        <dd class="inline"> {readTime}</dd>
+                    </div>
+                )
+            }
+        </dl>
+
+        {
+            youtubeUrl && (
+                <div class="mt-10">
+                    <YouTubeEmbed url={youtubeUrl} title={title} />
+                </div>
+            )
+        }
+
+        {
+            aiDeclaration && (
+                <p class="mt-10 flex items-start gap-2 text-sm italic text-ink-soft">
+                    <span class="group relative inline-flex shrink-0" tabindex="0">
+                        <span
+                            class="text-ai-accent [&>svg]:h-8 [&>svg]:w-8"
+                            aria-hidden="true"
+                            set:html={robotIcon}
+                        />
+                        <span
+                            role="tooltip"
+                            class="pointer-events-none absolute bottom-full left-0 z-10 mb-2 w-max max-w-64 rounded-md border border-line bg-surface px-2.5 py-1.5 text-xs not-italic text-ink opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+                        >
+                            AI was used for content on this page
+                        </span>
+                    </span>
+                    <span>{aiDeclaration}</span>
+                </p>
+            )
+        }
+
+        <div class="prose prose-sm sm:prose-base mt-10 max-w-none">
+            <Content />
+        </div>
+
+        <footer class="mt-16 border-t border-line pt-8">
             <a
                 href="/blog"
-                class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
+                class="font-mono text-xs text-ink-soft transition-colors hover:text-signal"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <path d="m15 18-6-6 6-6"></path>
-                </svg>
-                Back to Blog
+                ← All posts
             </a>
-
-            <!-- Article Header -->
-            <header class="mb-12">
-                <div
-                    class="flex items-center gap-4 text-sm text-muted-foreground mb-4"
-                >
-                    <span
-                        class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium"
-                    >
-                        {category}
-                    </span>
-                    <time datetime={pubDate.toISOString()}>
-                        {
-                            pubDate.toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                            })
-                        }
-                    </time>
-                    {
-                        readTime && (
-                            <>
-                                <span>·</span>
-                                <span>{readTime}</span>
-                            </>
-                        )
-                    }
-                </div>
-                <h1 class="text-4xl font-bold tracking-tight sm:text-5xl mb-6">
-                    {title}
-                </h1>
-                <div class="flex items-center gap-3">
-                    <div
-                        class="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary text-lg"
-                    >
-                        {
-                            author
-                                .split(" ")
-                                .map((n: string) => n[0])
-                                .join("")
-                        }
-                    </div>
-                    <div>
-                        <p class="font-medium">{author}</p>
-                        <p class="text-sm text-muted-foreground">Author</p>
-                    </div>
-                </div>
-            </header>
-
-            <!-- Video -->
-            {
-                youtubeUrl && (
-                    <div class="mb-12">
-                        <YouTubeEmbed url={youtubeUrl} title={title} />
-                    </div>
-                )
-            }
-
-            <!-- AI Declaration -->
-            {
-                aiDeclaration && (
-                    <p class="mb-8 flex items-start gap-2 text-sm italic text-muted-foreground">
-                        <span
-                            class="group relative inline-flex shrink-0"
-                            tabindex="0"
-                        >
-                            <span
-                                class="text-ai-accent [&>svg]:h-8 [&>svg]:w-8"
-                                aria-hidden="true"
-                                set:html={robotIcon}
-                            />
-                            <span
-                                role="tooltip"
-                                class="pointer-events-none absolute bottom-full left-0 z-10 mb-2 w-max max-w-64 rounded-md border border-border bg-popover px-2.5 py-1.5 text-xs not-italic text-popover-foreground opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
-                            >
-                                AI was used for content on this page
-                            </span>
-                        </span>
-                        <span>{aiDeclaration}</span>
-                    </p>
-                )
-            }
-
-            <!-- Article Content -->
-            <div
-                class="prose prose-invert prose-lg max-w-none
-                prose-headings:font-bold prose-headings:tracking-tight
-                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
-                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                prose-p:text-muted-foreground prose-p:leading-relaxed
-                prose-a:text-primary prose-a:no-underline prose-a:hover:underline
-                prose-code:bg-secondary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-                prose-pre:bg-secondary prose-pre:border prose-pre:border-border
-                prose-ul:text-muted-foreground prose-ol:text-muted-foreground
-                prose-li:my-1
-                prose-blockquote:border-primary prose-blockquote:text-muted-foreground
-                prose-table:text-sm
-                prose-th:bg-secondary prose-th:px-4 prose-th:py-2
-                prose-td:px-4 prose-td:py-2 prose-td:border-border"
-            >
-                <Content />
-            </div>
-
-            <!-- Article Footer -->
-            <footer class="mt-16 pt-8 border-t border-border">
-                <div class="flex items-center justify-between">
-                    <a
-                        href="/blog"
-                        class="inline-flex items-center gap-2 text-primary hover:underline font-medium"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <path d="m15 18-6-6 6-6"></path>
-                        </svg>
-                        Back to all posts
-                    </a>
-                </div>
-            </footer>
-        </article>
-    </main>
-    <Footer />
+        </footer>
+    </article>
 </Layout>

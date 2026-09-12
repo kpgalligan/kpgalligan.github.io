@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "@/utils/formatDate";
+
+interface Props {
+    post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { title, excerpt, pubDate, category, readTime } = post.data;
+
+const stamp = formatDate(pubDate, "compact");
+---
+
+<a
+    href={`/blog/${post.id}`}
+    data-category={category}
+    class="post-card group grid grid-cols-[3.5rem_1fr_auto] items-center gap-4 border-b border-line py-5 transition-colors hover:border-signal sm:grid-cols-[4.5rem_1fr_auto] sm:gap-6"
+>
+    <span class="font-mono text-xs text-ink-soft">{stamp}</span>
+
+    <span class="min-w-0">
+        <span
+            class="block truncate font-display text-lg text-ink transition-colors group-hover:text-signal"
+        >
+            {title}
+        </span>
+        <span class="hidden truncate text-sm text-ink-soft sm:block">
+            {excerpt}
+        </span>
+    </span>
+
+    <span class="flex items-center gap-4">
+        <span class="hidden font-mono text-[11px] text-ink-soft md:block">
+            {[category, readTime].filter(Boolean).join(" · ")}
+        </span>
+        <span
+            aria-hidden="true"
+            class="text-ink-soft transition-all group-hover:translate-x-1 group-hover:text-signal"
+        >
+            →
+        </span>
+    </span>
+</a>

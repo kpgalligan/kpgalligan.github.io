@@ -1,11 +1,28 @@
-<footer class="py-6 md:px-8 md:py-0">
+---
+import { SITE } from "@/site.config";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
     <div
-        class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row"
+        class="mx-auto flex max-w-3xl flex-col gap-4 px-6 py-8 font-mono text-xs text-ink-soft sm:flex-row sm:items-center sm:justify-between"
     >
-        <p
-            class="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left"
-        >
-            &copy; Kevin Galligan.
-        </p>
+        <p>&copy; {year} {SITE.name}. Built with Astro.</p>
+
+        <nav class="flex flex-wrap items-center gap-4" aria-label="Social">
+            {
+                SITE.social.map((link) => (
+                    <a
+                        href={link.href}
+                        rel="me noreferrer"
+                        class="transition-colors hover:text-signal"
+                    >
+                        {link.label}
+                    </a>
+                ))
+            }
+            <a href="#top" class="transition-colors hover:text-signal">Top ↑</a>
+        </nav>
     </div>
 </footer>
