@@ -16,10 +16,10 @@
   --paper: #f7f6f3; /* page background */
   --ink: #15161b; /* primary text */
   --ink-soft: #5b5d66; /* secondary text */
-  --signal: #3d3dff; /* the one accent color */
+  --signal: #c2410c; /* the one accent color */
   --line: #e4e2dc; /* borders, rules */
   --surface: #efeeea; /* cards, raised panels, code blocks */
-  --ai-accent: #c36322; /* the "AI was used here" marker */
+  --ai-accent: #9c7b3a; /* the "AI was used here" marker */
 }
 
 .dark {
@@ -28,10 +28,10 @@
   --paper: #101114;
   --ink: #f2f1ed;
   --ink-soft: #9a9ca6;
-  --signal: #7b7bff;
+  --signal: #ff8747;
   --line: #26272c;
   --surface: #1a1b20;
-  --ai-accent: #ca9b73;
+  --ai-accent: #c4a468;
 }
 
 /* `inline` keeps these resolving against the live --paper/--ink/etc custom
