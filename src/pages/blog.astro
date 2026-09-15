@@ -3,15 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import SectionHeading from "@/components/SectionHeading.astro";
 import PostRow from "@/components/PostRow.astro";
 import { getCollection } from "astro:content";
+import { sortPosts } from "@/utils/sortPosts";
 
-// Get all blog posts and sort by date (newest first)
+// Dated posts newest first, then undated posts
 const allPosts = await getCollection("blog");
-const posts = allPosts.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
-// Extract unique categories for filter buttons
-const categories = [...new Set(posts.map((post) => post.data.category))];
+const posts = sortPosts(allPosts);
 ---
 
 <Layout
@@ -30,64 +26,9 @@ const categories = [...new Set(posts.map((post) => post.data.category))];
             Multiplatform, and AI-assisted engineering.
         </h1>
 
-        <div class="mt-10 mb-10 flex flex-wrap gap-2" id="category-filters">
-            <button
-                class="category-btn rounded-full border border-signal bg-signal px-3 py-1 font-mono text-xs text-paper transition-colors"
-                data-category="all"
-            >
-                All
-            </button>
-            {
-                categories.map((category) => (
-                    <button
-                        class="category-btn rounded-full border border-line px-3 py-1 font-mono text-xs text-ink-soft transition-colors hover:border-signal hover:text-signal"
-                        data-category={category}
-                    >
-                        {category}
-                    </button>
-                ))
-            }
-        </div>
-
-        <SectionHeading eyebrow="All posts" count={posts.length} />
-
-        <div id="posts-container">
+        <div class="mt-12">
+            <SectionHeading eyebrow="All posts" count={posts.length} />
             {posts.map((post) => <PostRow post={post} />)}
         </div>
     </section>
 </Layout>
-
-<script>
-    // Category filter. Rows are `display: grid`, so toggle the inline style
-    // back to "" rather than "block" — "block" would collapse the columns.
-    const filterButtons =
-        document.querySelectorAll<HTMLButtonElement>(".category-btn");
-    const postCards = document.querySelectorAll<HTMLElement>(".post-card");
-
-    const activeClasses = ["border-signal", "bg-signal", "text-paper"];
-    const idleClasses = [
-        "border-line",
-        "text-ink-soft",
-        "hover:border-signal",
-        "hover:text-signal",
-    ];
-
-    filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const category = button.dataset.category;
-
-            filterButtons.forEach((btn) => {
-                btn.classList.remove(...activeClasses);
-                btn.classList.add(...idleClasses);
-            });
-            button.classList.remove(...idleClasses);
-            button.classList.add(...activeClasses);
-
-            postCards.forEach((card) => {
-                const matches =
-                    category === "all" || card.dataset.category === category;
-                card.style.display = matches ? "" : "none";
-            });
-        });
-    });
-</script>

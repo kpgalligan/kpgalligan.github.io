@@ -2,11 +2,10 @@
 import { getCollection } from "astro:content";
 import SectionHeading from "@/components/SectionHeading.astro";
 import PostRow from "@/components/PostRow.astro";
+import { sortPosts } from "@/utils/sortPosts";
 
 const allPosts = await getCollection("blog");
-const posts = allPosts
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 5);
+const posts = sortPosts(allPosts).slice(0, 5);
 ---
 
 <section id="writing" class="mx-auto max-w-3xl px-6 pb-20">

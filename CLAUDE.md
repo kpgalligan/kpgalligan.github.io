@@ -15,7 +15,7 @@ There is **no linter, formatter, or test runner** configured — `astro` is the 
 
 ## Stack & architecture
 
-Astro 7 (static output, no adapter/SSR) + Tailwind CSS 4. Zero client JS apart from the theme toggle and the blog category filter, both plain `<script>` blocks.
+Astro 7 (static output, no adapter/SSR) + Tailwind CSS 4. Zero client JS apart from the theme toggle, which is a plain `<script>` block.
 
 **Tailwind is wired through the Vite plugin** (`@tailwindcss/vite` in `astro.config.mjs`), not an Astro integration. There is no `tailwind.config.mjs` — Tailwind v4 config lives entirely in CSS.
 
@@ -58,10 +58,13 @@ Path alias `@/*` → `src/*` (tsconfig). Pages import `Layout` by relative path 
 
 ### Blog
 
-Astro content collections. Schema is in `src/content.config.ts` (project-root style, not `src/content/config.ts`) using the `glob` loader over `src/content/blog/**/*.md`. Required frontmatter: `title`, `pubDate` (date), `author`, `category`; optional: `excerpt`, `readTime`, `heroImage`, `youtubeUrl`, `aiDeclaration`.
+Astro content collections. Schema is in `src/content.config.ts` (project-root style, not `src/content/config.ts`) using the `glob` loader over `src/content/blog/**/*.md`. Required frontmatter: `title`, `author`, `category`; optional: `pubDate` (date), `displayOrder` (number), `excerpt`, `readTime`, `heroImage`, `youtubeUrl`, `aiDeclaration`.
+
+**`category` is still required by the schema but is no longer rendered anywhere** — the listing rows, the post header, and the `/blog` filter that used it were all removed (the blog is too small to warrant categories). New posts still have to declare a value. Drop it from `src/content.config.ts` and from each post's frontmatter if it stays unused.
+
+**`pubDate` is optional.** Dated posts sort first, newest first. Undated posts follow, ordered among themselves by `displayOrder` ascending, with any lacking one falling to the end of that group alphabetically. That rule lives in `src/utils/sortPosts.ts` and is the only sort both `/blog` and `RecentPosts` use — **don't re-sort at a call site**, or the two listings drift. An undated post renders an em dash in the listing's date column (keeping the row grid aligned) and omits the `Date —` pair from the post header.
 
 - `src/pages/blog/[...slug].astro` uses `getStaticPaths` with `post.id` as the slug (filename without extension), and `render(post)` for the body. `aiDeclaration` renders the robot icon from `public/svg/robot.svg`, inlined via `fs.readFileSync` so it can inherit `currentColor`.
-- The category filter on `/blog` is a plain `<script>` toggling `style.display` on `.post-card` elements — not React, not a router. Rows are `display: grid`, so the script restores `""`, **not `"block"`** (which would collapse the columns). New filter behavior goes in that script.
 - Dates are formatted through `src/utils/formatDate.ts` (`compact` = MM/YYYY for listing rows, `long` for the post header).
 
 ## Repository state
