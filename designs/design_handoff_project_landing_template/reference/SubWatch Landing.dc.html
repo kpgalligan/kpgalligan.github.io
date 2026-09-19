@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/tokens/colors.css">
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/tokens/typography.css">
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/tokens/shape.css">
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/tokens/base.css">
+<link rel="stylesheet" href="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/styles.css">
+<script src="_ds/kevin-galligan-design-system-4e31bfc1-01b2-4e36-80d8-202a2863df3f/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  body { background: var(--paper); color: var(--ink); font-family: var(--font-body); margin: 0; }
+  a { color: var(--signal); text-decoration: none; }
+  a:hover { color: var(--ink); }
+  ul { margin: 0; padding: 0; list-style: none; }
+</style>
+</helmet>
+
+<div id="top" style="background:var(--paper);min-height:100vh">
+
+<x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SiteHeader" links="{{ navLinks }}" current-path="/projects" theme="{{ theme }}" on-toggle-theme="{{ toggleTheme }}" hint-size="100%,57px"></x-import>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:var(--space-16) var(--gutter) var(--space-12)">
+  <p style="margin:0 0 var(--space-8);display:flex;align-items:center;gap:var(--space-2);font-family:var(--font-mono);font-size:var(--text-xs);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);color:var(--ink-soft)">
+    <span aria-hidden="true" style="height:6px;width:6px;border-radius:var(--radius-full);background:var(--signal)"></span>
+    macOS menu bar app
+  </p>
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--space-6)">
+    <img src="assets/subwatch-icon.png" alt="SubWatch app icon" width="96" height="96" style="width:96px;height:96px;flex:0 0 auto;display:block">
+    <div style="flex:1 1 20rem;min-width:0">
+      <h1 style="margin:0;font-family:var(--font-display);font-size:var(--text-4xl);font-weight:var(--weight-medium);line-height:var(--leading-tight);color:var(--ink)">SubWatch</h1>
+      <p style="margin:var(--space-4) 0 0;max-width:var(--measure-prose);color:var(--ink-soft);line-height:var(--leading-relaxed);text-wrap:pretty">Shows how much of each AI subscription's rate limit you have used, in the menu bar. Claude only for now; the provider layer is shaped so Codex can be added later.</p>
+    </div>
+  </div>
+  <div style="margin-top:var(--space-8);display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3)">
+    <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.Button" href="#download" hint-size="auto,40px">Download the .dmg</x-import>
+    <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.Button" href="https://github.com/kpgalligan/subwatch" variant="outline" hint-size="auto,40px">github.com/kpgalligan/subwatch →</x-import>
+  </div>
+  <p style="margin:var(--space-5) 0 0;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--ink-soft)">Version 0.1.0 &nbsp;—&nbsp; macOS 15 or later &nbsp;—&nbsp; Apple silicon and Intel</p>
+</section>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <div style="border:1px solid var(--line);border-radius:var(--radius-xl);background:var(--surface);overflow:hidden">
+    <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--line)">
+        <span style="height:10px;width:10px;border-radius:var(--radius-full);border:1px solid var(--line);background:var(--paper)"></span>
+        <span style="height:10px;width:10px;border-radius:var(--radius-full);border:1px solid var(--line);background:var(--paper)"></span>
+        <span style="height:10px;width:10px;border-radius:var(--radius-full);border:1px solid var(--line);background:var(--paper)"></span>
+      </div>
+    </sc-if>
+    <div style="aspect-ratio:16 / 10;width:100%">
+      <image-slot id="sw-shot-popover" shape="rect" placeholder="Popover screenshot — the menu bar item open"></image-slot>
+    </div>
+  </div>
+  <p style="margin:var(--space-4) 0 0;max-width:var(--measure-prose);font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft);text-wrap:pretty">One click on the gauge opens the list. Each account shows its plan, when it was last checked, and a meter per limit window, so a five-hour session limit and a weekly limit are visible at the same time. The popover refreshes on open, debounced to thirty seconds.</p>
+</section>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SectionHeading" eyebrow="What it does" hint-size="100%,48px"></x-import>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:var(--space-8);border-bottom:1px solid var(--line);padding-bottom:var(--space-12)">
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--weight-medium);color:var(--ink)">The number, in the menu bar</h3>
+      <p style="margin:var(--space-3) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">The tray label carries the highest session utilization across your accounts, so a glance is usually enough.</p>
+      <ul style="margin:var(--space-4) 0 0;display:grid;gap:var(--space-2);font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">
+        <li style="display:grid;grid-template-columns:1rem 1fr;gap:var(--space-2)"><span aria-hidden="true" style="font-family:var(--font-mono)">—</span><span>Icon and percentage, or icon only</span></li>
+        <li style="display:grid;grid-template-columns:1rem 1fr;gap:var(--space-2)"><span aria-hidden="true" style="font-family:var(--font-mono)">—</span><span>Follows the menu bar in light and dark, then turns red past your critical threshold</span></li>
+        <li style="display:grid;grid-template-columns:1rem 1fr;gap:var(--space-2)"><span aria-hidden="true" style="font-family:var(--font-mono)">—</span><span>Warning and critical percentages are yours to set</span></li>
+      </ul>
+    </div>
+    <div style="aspect-ratio:4 / 3">
+      <image-slot id="sw-shot-tray" shape="rounded" radius="12" placeholder="Menu bar close-up"></image-slot>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:var(--space-8);padding-top:var(--space-12)">
+    <div style="aspect-ratio:4 / 3">
+      <image-slot id="sw-shot-settings" shape="rounded" radius="12" placeholder="Settings screenshot"></image-slot>
+    </div>
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);font-weight:var(--weight-medium);color:var(--ink)">More than one account</h3>
+      <p style="margin:var(--space-3) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">Sign in once per account through a real Claude login window. If a session expires, that row says so and offers to sign in again — nothing else stops working.</p>
+      <ul style="margin:var(--space-4) 0 0;display:grid;gap:var(--space-2);font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">
+        <li style="display:grid;grid-template-columns:1rem 1fr;gap:var(--space-2)"><span aria-hidden="true" style="font-family:var(--font-mono)">—</span><span>Personal and work accounts side by side</span></li>
+        <li style="display:grid;grid-template-columns:1rem 1fr;gap:var(--space-2)"><span aria-hidden="true" style="font-family:var(--font-mono)">—</span><span>Session keys and cookies stay in the Keychain</span></li>
+        <li style="display:grid;grid-template-columns:1rem 1fr;gap:var(--space-2)"><span aria-hidden="true" style="font-family:var(--font-mono)">—</span><span>Refreshes in the background, and again when you open it</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SectionHeading" eyebrow="Also" hint-size="100%,48px"></x-import>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:var(--space-8) var(--space-10)">
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-medium);color:var(--ink)">Early-reset alerts</h3>
+      <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">A notification when a weekly limit resets before you expected it to. Clicking it opens the popover.</p>
+    </div>
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-medium);color:var(--ink)">Launch at login</h3>
+      <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">One switch. No login item to hunt down in System Settings.</p>
+    </div>
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-medium);color:var(--ink)">No dock icon</h3>
+      <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">It runs as a menu bar accessory, so it stays out of the dock and out of ⌘-tab.</p>
+    </div>
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-medium);color:var(--ink)">Nothing leaves the machine</h3>
+      <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">Usage snapshots are written to a local file. There is no server, no account and no telemetry.</p>
+    </div>
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-medium);color:var(--ink)">Built for another provider</h3>
+      <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">The provider layer is generic. Codex is the next one in, when its usage data is reachable.</p>
+    </div>
+    <div>
+      <h3 style="margin:0;font-family:var(--font-display);font-size:var(--text-base);font-weight:var(--weight-medium);color:var(--ink)">Open source</h3>
+      <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">Swift and SwiftUI, with the parsing and formatting logic in a tested core package.</p>
+    </div>
+  </div>
+</section>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SectionHeading" eyebrow="Demo" hint-size="100%,48px"></x-import>
+  <sc-if value="{{ hasVideoId }}">
+    <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.YouTubeEmbed" video-id="{{ videoId }}" title="SubWatch demo" hint-size="100%,380px"></x-import>
+  </sc-if>
+  <sc-if value="{{ noVideoId }}" hint-placeholder-val="{{ true }}">
+    <div style="aspect-ratio:16 / 9;width:100%;border:1px solid var(--line);border-radius:var(--radius-xl);overflow:hidden;background:var(--surface)">
+      <image-slot id="sw-video-poster" shape="rect" placeholder="Drop a poster frame, or set the videoId tweak for the real embed"></image-slot>
+    </div>
+  </sc-if>
+  <p style="margin:var(--space-3) 0 0;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--ink-soft)">Adding an account, then a week of usage in two minutes.</p>
+</section>
+
+<section id="download" style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.DefinitionList" eyebrow="Details & requirements" items="{{ specs }}" hint-size="100%,420px"></x-import>
+  <div style="margin-top:var(--space-8);display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3)">
+    <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.Button" href="https://github.com/kpgalligan/subwatch/releases/latest" hint-size="auto,40px">Download SubWatch 0.1.0 (.dmg)</x-import>
+    <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--ink-soft)">Signed and notarized &nbsp;—&nbsp; 4.1 MB</span>
+  </div>
+</section>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SectionHeading" eyebrow="Changelog & roadmap" hint-size="100%,48px"></x-import>
+  <sc-for list="{{ releases }}" as="r" hint-placeholder-count="4">
+    <div style="display:grid;grid-template-columns:5.5rem 1fr;gap:var(--space-6);border-bottom:1px solid var(--line);padding:var(--space-5) 0;align-items:baseline">
+      <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--ink-soft)">{{ r.version }}</span>
+      <div style="min-width:0">
+        <p style="margin:0;font-family:var(--font-display);font-size:var(--text-base);color:var(--ink)">{{ r.title }}</p>
+        <p style="margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">{{ r.body }}</p>
+      </div>
+    </div>
+  </sc-for>
+</section>
+
+<section style="margin:0 auto;max-width:var(--measure);padding:0 var(--gutter) var(--section-pb)">
+  <x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SectionHeading" eyebrow="Questions" hint-size="100%,48px"></x-import>
+  <sc-for list="{{ faq }}" as="q" hint-placeholder-count="5">
+    <div style="border-bottom:1px solid var(--line);padding:var(--space-5) 0">
+      <p style="margin:0;font-family:var(--font-display);font-size:var(--text-base);color:var(--ink)">{{ q.q }}</p>
+      <p style="margin:var(--space-2) 0 0;max-width:var(--measure-prose);font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft);text-wrap:pretty">{{ q.a }}</p>
+    </div>
+  </sc-for>
+  <p style="margin:var(--space-8) 0 0;font-size:var(--text-sm);line-height:var(--leading-relaxed);color:var(--ink-soft)">Something broken, or a provider you want next? <a href="https://github.com/kpgalligan/subwatch/issues">Open an issue</a>, or <a href="mailto:kevin@kpgalligan.com">mail me</a>.</p>
+</section>
+
+<x-import component-from-global-scope="KevinGalliganDesignSystem_4e31bf.SiteFooter" hint-size="100%,88px"></x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;},&quot;windowChrome&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Screenshots&quot;},&quot;videoId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = { theme: this.props.theme ?? "light" };
+
+  componentDidMount() { this.applyTheme(); }
+  componentDidUpdate(prev) {
+    if (prev.theme !== this.props.theme) this.setState({ theme: this.props.theme ?? "light" });
+    this.applyTheme();
+  }
+  applyTheme() {
+    document.documentElement.classList.toggle("dark", this.state.theme === "dark");
+  }
+
+  renderVals() {
+    const videoId = (this.props.videoId ?? "").trim();
+    return {
+      navLinks: [{ label: "Blog", href: "/blog" }, { label: "Projects", href: "/projects" }],
+      theme: this.state.theme,
+      toggleTheme: () => this.setState(s => ({ theme: s.theme === "dark" ? "light" : "dark" }), () => this.applyTheme()),
+      showChrome: this.props.windowChrome ?? true,
+      videoId,
+      hasVideoId: videoId.length > 0,
+      noVideoId: videoId.length === 0,
+      hideHeading: { marginTop: "calc(-1 * var(--space-8))" },
+      specs: [
+        { title: "macOS", body: "15.0 Sequoia or later. Apple silicon and Intel." },
+        { title: "Providers", body: "Claude, via the endpoints the Claude web app uses. Codex is planned." },
+        { title: "Credentials", body: "Session keys and cookies live in the Keychain, one item per account." },
+        { title: "Data", body: "Accounts and their last usage snapshot are a JSON file in Application Support. Preferences are UserDefaults. Nothing is uploaded." },
+        { title: "Signing", body: "Signed and notarized. Notifications and launch at login are refused for unsigned builds." },
+        { title: "Price", body: "Free. MIT licensed." },
+        { title: "Source", body: "github.com/kpgalligan/subwatch — Swift, SwiftUI, and a tested SubWatchCore package." }
+      ],
+      releases: [
+        { version: "Next", title: "Codex support", body: "Same rows, second provider. Waiting on a usage endpoint that can be read from a signed-in session." },
+        { version: "Next", title: "Usage history", body: "A week of session peaks, so a limit that keeps landing early is visible before it bites." },
+        { version: "0.1.0", title: "First build", body: "Menu bar percentage, multi-account popover, per-window meters, thresholds, early-reset notification, launch at login." }
+      ],
+      faq: [
+        { q: "Does this use an official Claude API?", a: "No. It calls the same usage endpoints the Claude web app calls. They are unofficial and undocumented, and may change without notice. Responses are parsed defensively, but a change in shape shows up as \"Unexpected response from Claude\"." },
+        { q: "Do you see my account, or my prompts?", a: "Neither. There is no server involved. The app talks to Claude from your machine and writes what it gets to a local file." },
+        { q: "Why does it want me to sign in through a window?", a: "It reuses your normal Claude session rather than asking for a password or a key. The session is stored in the Keychain, and expires the way a browser session does." },
+        { q: "Does it count API spend?", a: "No. It reports subscription rate-limit usage — session and weekly windows — not billing." },
+        { q: "Can I run more than one account?", a: "Yes. Each one is a row, refreshed independently, and the menu bar shows whichever is highest." }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
