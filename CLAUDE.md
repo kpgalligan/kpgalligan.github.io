@@ -64,8 +64,17 @@ Astro content collections. Schema is in `src/content.config.ts` (project-root st
 
 **`pubDate` is optional.** Dated posts sort first, newest first. Undated posts follow, ordered among themselves by `displayOrder` ascending, with any lacking one falling to the end of that group alphabetically. That rule lives in `src/utils/sortPosts.ts` and is the only sort both `/blog` and `RecentPosts` use — **don't re-sort at a call site**, or the two listings drift. An undated post renders an em dash in the listing's date column (keeping the row grid aligned) and omits the `Date —` pair from the post header.
 
-- `src/pages/blog/[...slug].astro` uses `getStaticPaths` with `post.id` as the slug (filename without extension), and `render(post)` for the body. `aiDeclaration` renders the robot icon from `public/svg/robot.svg`, inlined via `fs.readFileSync` so it can inherit `currentColor`.
+- `src/pages/blog/[...slug].astro` uses `getStaticPaths` with `post.id` as the slug (filename without extension), and `render(post)` for the body. `aiDeclaration` renders `src/components/AiDeclaration.astro` (shared with project pages), which inlines `public/svg/robot.svg` through a Vite `?raw` import so the icon inherits `currentColor`. Keep it a `?raw` import: a runtime `fs` read relative to `import.meta.url` breaks once the component is bundled into its own chunk.
 - Dates are formatted through `src/utils/formatDate.ts` (`compact` = MM/YYYY for listing rows, `long` for the post header).
+
+### Projects
+
+Project landing pages are **regular Astro pages**, one file each under `src/pages/projects/` (`subwatch.astro`), deliberately not a content collection: with two or three of them, a schema only gets in the way of a page that wants a different section. Each page keeps its copy in frontmatter arrays (the `WhatIDo`/`Timeline` pattern) and composes the section components in `src/components/project/` — `ProjectHero` (buttons go in its default slot), `ScreenshotFigure`, `FeaturePair`, `FeatureGrid`, `SpecList`, `ReleaseList`, `FaqList` — each under a `SectionHeading`, in the order hero → lead screenshot → features → also → (video) → specs (+ download) → releases → FAQ + contact. Leave a section out by not writing it; nothing renders an empty state. Icons and screenshots live in `src/assets/projects/<name>/` and are imported into the page for Astro's `<Image>`, which is why `sharp` is a direct dependency (pnpm does not expose Astro's transitive copy, and the build fails without it).
+
+`src/pages/projects.astro` is the index. Its list is a hand-maintained array in the frontmatter — add a row when you add a page. The design the pages follow is `designs/design_handoff_project_landing_template/README.md`; its `content-example.subwatch.md` describes an older, login-based SubWatch, and the live copy was rewritten from the app's current source.
+
+- `FeaturePair` is two-column only when given an `image`; without one the text spans the full width. All multi-column grids are `auto-fit`, so there are no breakpoints to maintain.
+- `aiDeclaration` on the hero renders the same robot note as blog posts (see above).
 
 ## Repository state
 

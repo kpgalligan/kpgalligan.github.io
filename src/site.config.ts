@@ -40,4 +40,7 @@ export const SITE = {
     locale: "en",
 } as const;
 
-export const NAV_LINKS = [{ label: "Blog", href: "/blog" }] as const;
+export const NAV_LINKS = [
+    { label: "Blog", href: "/blog" },
+    { label: "Projects", href: "/projects" },
+] as const;

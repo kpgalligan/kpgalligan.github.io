@@ -1,0 +1,19 @@
+---
+// Imageless title + body cells; wraps at 14rem tracks.
+interface Props {
+    items: { title: string; body: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))] gap-x-10 gap-y-8">
+    {
+        items.map(({ title, body }) => (
+            <div>
+                <h3 class="font-display text-base font-medium text-ink">{title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-ink-soft">{body}</p>
+            </div>
+        ))
+    }
+</div>

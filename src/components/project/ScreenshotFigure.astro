@@ -1,0 +1,48 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// A screenshot in a bordered well on --surface, at the image's own aspect
+// ratio. `chrome` adds a three-dot window bar above it.
+interface Props {
+    image: ImageMetadata;
+    alt: string;
+    chrome?: boolean;
+    widths?: number[];
+    sizes?: string;
+    class?: string;
+}
+
+const {
+    image,
+    alt,
+    chrome = false,
+    // The well is 45rem wide inside the site container; 2x for retina.
+    widths = [720, 1440],
+    sizes = "(min-width: 48rem) 45rem, calc(100vw - 3rem)",
+    class: className,
+} = Astro.props;
+---
+
+<div class:list={["overflow-hidden rounded-xl border border-line bg-surface", className]}>
+    {
+        chrome && (
+            <div
+                class="flex items-center gap-2 border-b border-line px-4 py-3"
+                aria-hidden="true"
+            >
+                <span class="h-2.5 w-2.5 rounded-full border border-line bg-paper" />
+                <span class="h-2.5 w-2.5 rounded-full border border-line bg-paper" />
+                <span class="h-2.5 w-2.5 rounded-full border border-line bg-paper" />
+            </div>
+        )
+    }
+    <Image
+        src={image}
+        alt={alt}
+        width={Math.max(...widths)}
+        widths={widths}
+        sizes={sizes}
+        class="block h-auto w-full"
+    />
+</div>

@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+// Title, body and em-dash bullets, optionally beside a screenshot. Two
+// columns when there is room, one below ~34rem, no media query: the grid
+// is auto-fit. Without an image the text takes the whole width.
+interface Props {
+    title: string;
+    body: string;
+    bullets?: string[];
+    image?: ImageMetadata;
+    alt?: string;
+    side?: "left" | "right";
+    first?: boolean;
+    last?: boolean;
+}
+
+const {
+    title,
+    body,
+    bullets = [],
+    image,
+    alt = "",
+    side = "right",
+    first = false,
+    last = false,
+} = Astro.props;
+---
+
+<div
+    class:list={[
+        "grid grid-cols-[repeat(auto-fit,minmax(min(100%,17rem),1fr))] gap-8",
+        !first && "pt-12",
+        !last && "border-b border-line pb-12",
+    ]}
+>
+    <div>
+        <h3 class="font-display text-lg font-medium text-ink">{title}</h3>
+        <p class="mt-3 text-sm leading-relaxed text-ink-soft">{body}</p>
+        {
+            bullets.length > 0 && (
+                <ul class="mt-4 grid gap-2 text-sm leading-relaxed text-ink-soft">
+                    {bullets.map((bullet) => (
+                        <li class="grid grid-cols-[1rem_1fr] gap-2">
+                            <span class="font-mono" aria-hidden="true">
+                                —
+                            </span>
+                            <span>{bullet}</span>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+    </div>
+
+    {
+        image && (
+            <Image
+                src={image}
+                alt={alt}
+                width={800}
+                widths={[400, 800]}
+                sizes="(min-width: 40rem) 22rem, calc(100vw - 3rem)"
+                class:list={[
+                    "block h-auto w-full self-start overflow-hidden rounded-xl border border-line bg-surface",
+                    side === "left" && "order-first",
+                ]}
+            />
+        )
+    }
+</div>

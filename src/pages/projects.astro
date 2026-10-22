@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import SectionHeading from "@/components/SectionHeading.astro";
+import subwatchIcon from "@/assets/projects/subwatch/icon.png";
+
+// Hand-maintained: every project is a regular page under src/pages/projects/.
+// Add a row here when you add a page.
+const projects = [
+    {
+        title: "SubWatch",
+        href: "/projects/subwatch",
+        eyebrow: "macOS menu bar app",
+        summary:
+            "Shows how much of each AI subscription's rate limit you have used, in the menu bar. Claude Code and Codex.",
+        icon: subwatchIcon,
+    },
+];
+---
+
+<Layout
+    title="Projects - Kevin Galligan"
+    description="Small apps and tools, mostly built for myself, and lately a way to see what AI agents can do."
+>
+    <section class="mx-auto max-w-3xl px-6 pt-16 pb-24 sm:pt-24">
+        <p class="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-ink-soft">
+            Projects
+        </p>
+
+        <h1
+            class="max-w-xl font-display text-3xl font-medium text-ink sm:text-4xl"
+        >
+            Small apps and tools, mostly built for myself, and lately a way to
+            see what AI agents can do.
+        </h1>
+
+        <div class="mt-12">
+            <SectionHeading eyebrow="All projects" count={projects.length} />
+            {
+                projects.map((project) => (
+                    <a
+                        href={project.href}
+                        class="group grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-b border-line py-5 transition-colors hover:border-signal sm:gap-6"
+                    >
+                        <Image
+                            src={project.icon}
+                            alt=""
+                            width={40}
+                            height={40}
+                            densities={[1, 2]}
+                            class="h-10 w-10"
+                        />
+
+                        <span class="min-w-0">
+                            <span class="block truncate font-display text-lg text-ink transition-colors group-hover:text-signal">
+                                {project.title}
+                            </span>
+                            <span class="hidden truncate text-sm text-ink-soft sm:block">
+                                {project.summary}
+                            </span>
+                        </span>
+
+                        <span class="flex items-center gap-4">
+                            <span class="hidden font-mono text-[11px] text-ink-soft md:block">
+                                {project.eyebrow}
+                            </span>
+                            <span
+                                aria-hidden="true"
+                                class="text-ink-soft transition-all group-hover:translate-x-1 group-hover:text-signal"
+                            >
+                                →
+                            </span>
+                        </span>
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+</Layout>

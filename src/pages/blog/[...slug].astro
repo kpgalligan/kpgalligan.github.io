@@ -1,16 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AiDeclaration from "@/components/AiDeclaration.astro";
 import YouTubeEmbed from "@/components/YouTubeEmbed.astro";
 import { formatDate } from "@/utils/formatDate";
 import { getCollection, render } from "astro:content";
-import fs from "node:fs";
-
-// Inlined rather than <img src="/svg/robot.svg"> so the icon inherits
-// currentColor from the surrounding text — an <img> would render it black
-// regardless of theme. Sizing comes from the wrapper, not the file.
-const robotIcon = fs
-    .readFileSync(new URL("../../../public/svg/robot.svg", import.meta.url), "utf-8")
-    .replace(/\s(?:width|height)="\d+"/g, "");
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -78,26 +71,7 @@ const formattedDate = pubDate ? formatDate(pubDate) : null;
             )
         }
 
-        {
-            aiDeclaration && (
-                <p class="mt-10 flex items-start gap-2 text-sm italic text-ink-soft">
-                    <span class="group relative inline-flex shrink-0" tabindex="0">
-                        <span
-                            class="text-ai-accent [&>svg]:h-8 [&>svg]:w-8"
-                            aria-hidden="true"
-                            set:html={robotIcon}
-                        />
-                        <span
-                            role="tooltip"
-                            class="pointer-events-none absolute bottom-full left-0 z-10 mb-2 w-max max-w-64 rounded-md border border-line bg-surface px-2.5 py-1.5 text-xs not-italic text-ink opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
-                        >
-                            AI was used for content on this page
-                        </span>
-                    </span>
-                    <span>{aiDeclaration}</span>
-                </p>
-            )
-        }
+        {aiDeclaration && <AiDeclaration note={aiDeclaration} class="mt-10" />}
 
         <div class="prose prose-sm sm:prose-base mt-10 max-w-none">
             <Content />

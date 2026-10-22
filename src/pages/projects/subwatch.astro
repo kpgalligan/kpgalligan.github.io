@@ -1,0 +1,200 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "@/components/Button.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import ProjectHero from "@/components/project/ProjectHero.astro";
+import ScreenshotFigure from "@/components/project/ScreenshotFigure.astro";
+import FeaturePair from "@/components/project/FeaturePair.astro";
+import FeatureGrid from "@/components/project/FeatureGrid.astro";
+import SpecList from "@/components/project/SpecList.astro";
+import ReleaseList from "@/components/project/ReleaseList.astro";
+import FaqList from "@/components/project/FaqList.astro";
+import { SITE } from "@/site.config";
+import icon from "@/assets/projects/subwatch/icon.png";
+import popover from "@/assets/projects/subwatch/popover.jpeg";
+
+const repo = "https://github.com/kpgalligan/subwatch";
+
+const summary =
+    "Shows how much of each AI subscription's rate limit you have used, in the menu bar. Claude Code and Codex. It reads what the CLIs already keep on this Mac and never makes a network call.";
+
+const features = [
+    {
+        title: "The number, in the menu bar",
+        body: "The menu bar item carries the highest session utilization across every account, so a glance is usually enough.",
+        bullets: [
+            "Icon and percentage, or icon only",
+            "Follows the menu bar in light and dark, then turns red past the critical threshold",
+            "Warning and critical percentages are settings. The defaults are 70 and 90.",
+        ],
+    },
+    {
+        title: "Nothing to sign in to",
+        body: "SubWatch reads the config folders Claude Code and Codex already keep. Who is logged in comes from each folder's own files; tokens are never stored or logged. There are no credentials to hand over and no network calls.",
+        bullets: [
+            "Codex usage comes from the session logs, where every response's rate limits are recorded",
+            "Claude Code keeps no usage on disk, so a small script saves what it hands the status line",
+            "The numbers are as fresh as the last time the CLI ran as that account",
+        ],
+    },
+    {
+        title: "More than one account",
+        body: "Any number of config folders can be watched: ~/.claude, ~/.claude-personal, ~/.codex. Every account seen logged in to one gets a row and keeps its last numbers after a switch, so changing logins in one folder builds up a list.",
+        bullets: [
+            "Personal and work accounts side by side",
+            "Rows can be renamed and reordered",
+            "Removing a folder keeps the accounts it found, with their last numbers",
+        ],
+    },
+];
+
+const also = [
+    {
+        title: "Early-reset alerts",
+        body: "A notification when a weekly limit resets before it was due. Clicking it opens the popover.",
+    },
+    {
+        title: "Stays current",
+        body: "Reloads when the feed changes, once a minute, after the Mac wakes, and every time the popover opens.",
+    },
+    {
+        title: "Launch at login",
+        body: "One switch in Settings. No login item to hunt down in System Settings.",
+    },
+    {
+        title: "No dock icon",
+        body: "It runs as a menu bar accessory, so it stays out of the dock and out of ⌘-tab.",
+    },
+    {
+        title: "Quiet accounts sink",
+        body: "A window that ran out says when instead of how much, and accounts with no recent change drop below the active ones.",
+    },
+    {
+        title: "Nothing leaves the machine",
+        body: "There is no server, no account and no telemetry. Everything it reads and writes stays on this Mac.",
+    },
+];
+
+const specs = [
+    { title: "macOS", body: "15 Sequoia or later." },
+    {
+        title: "Providers",
+        body: "Claude Code and Codex, read from their config folders. Claude usage needs the status line feed script; Codex usage comes from the session logs.",
+    },
+    {
+        title: "Credentials",
+        body: "None. Who is logged in comes from each folder's own files. Tokens are never stored or logged.",
+    },
+    {
+        title: "Data",
+        body: "Watched folders, accounts and their last usage are a JSON file in Application Support. Preferences are UserDefaults. Nothing is uploaded.",
+    },
+    {
+        title: "Signing",
+        body: "Notifications and launch at login are refused for an unsigned build.",
+    },
+    {
+        title: "Source",
+        body: "Swift and SwiftUI, with the parsing and reset logic in SubWatchCore, a Swift package with its own tests. Built with XcodeGen.",
+    },
+];
+
+const releases = [
+    {
+        version: "0.1.0",
+        title: "First build",
+        body: "Menu bar percentage, multi-account popover, per-window meters, thresholds, early-reset notification, launch at login. Claude Code and Codex.",
+    },
+];
+
+const faq = [
+    {
+        q: "Does this use an official API?",
+        a: "No, and it does not call one. It reads the files Claude Code and Codex keep on this Mac. Apart from the status line's rate limits, those files are the tools' own and undocumented, and may change shape without notice. They are parsed defensively; a change shows up as an account with no usage.",
+    },
+    {
+        q: "Why does Claude need a script?",
+        a: "Claude Code keeps no usage on disk, but it hands rate limits to the status line with every response. Two lines in the status line script pipe that into subwatch-feed.sh, which saves the latest per config folder. It needs jq, prints nothing and always exits cleanly, so a status line never breaks because of it.",
+    },
+    {
+        q: "What does it read?",
+        a: "For Claude Code, the login in .claude.json and the status line feed. For Codex, the login from the id token's claims in auth.json and the rate limits Codex records in its session logs. That is all.",
+    },
+    {
+        q: "Does it count API spend?",
+        a: "No. It reports subscription rate-limit usage, session and weekly windows, not billing.",
+    },
+    {
+        q: "Can I run more than one account?",
+        a: "Yes. Every account seen logged in to a watched folder gets a row, and the menu bar shows whichever session is highest.",
+    },
+];
+
+const section = "mx-auto max-w-3xl px-6 pb-20";
+---
+
+<Layout title="SubWatch - Kevin Galligan" description={summary}>
+    <ProjectHero
+        eyebrow="macOS menu bar app"
+        {icon}
+        title="SubWatch"
+        {summary}
+        meta="Version 0.1.0 — macOS 15 or later"
+        aiDeclaration="Built with AI coding agents, mostly for myself, as a small example of what they can do. This page was too."
+    >
+        <Button href={repo} variant="solid" target="_blank" rel="noreferrer">
+            github.com/kpgalligan/subwatch →
+        </Button>
+    </ProjectHero>
+
+    <section class={section}>
+        <ScreenshotFigure
+            image={popover}
+            alt="The SubWatch popover open under the menu bar, listing two Claude accounts and one Codex account, each with a meter per limit window"
+        />
+        <p class="mt-4 max-w-xl text-sm leading-relaxed text-pretty text-ink-soft">
+            One click on the menu bar item opens the list. Each account shows its
+            plan, when its numbers were last seen, and a meter per limit window,
+            so a five-hour session limit and a weekly limit are visible at the
+            same time. Accounts that moved in the last hour sort to the top.
+        </p>
+    </section>
+
+    <section class={section}>
+        <SectionHeading eyebrow="What it does" />
+        {
+            features.map((feature, i) => (
+                <FeaturePair
+                    {...feature}
+                    first={i === 0}
+                    last={i === features.length - 1}
+                />
+            ))
+        }
+    </section>
+
+    <section class={section}>
+        <SectionHeading eyebrow="Also" />
+        <FeatureGrid items={also} />
+    </section>
+
+    <section class={section}>
+        <SectionHeading eyebrow="Details & requirements" />
+        <SpecList items={specs} />
+    </section>
+
+    <section class={section}>
+        <SectionHeading eyebrow="Changelog & roadmap" />
+        <ReleaseList {releases} />
+    </section>
+
+    <section class={section}>
+        <SectionHeading eyebrow="Questions" />
+        <FaqList {faq} />
+        <p class="mt-8 text-sm leading-relaxed text-ink-soft">
+            Something broken, or a provider you want next?
+            <a href={`${repo}/issues`} class="text-signal transition-colors hover:text-ink">Open an issue</a>, or
+            <a href={`mailto:${SITE.email}`} class="text-signal transition-colors hover:text-ink">mail me</a>.
+        </p>
+    </section>
+</Layout>

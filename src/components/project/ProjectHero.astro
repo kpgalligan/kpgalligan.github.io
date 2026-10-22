@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import AiDeclaration from "@/components/AiDeclaration.astro";
+
+// Eyebrow, icon, title and summary, then whatever buttons the page puts in
+// the default slot, then the mono meta line and the AI note.
+interface Props {
+    eyebrow: string;
+    icon: ImageMetadata;
+    title: string;
+    summary: string;
+    meta?: string;
+    aiDeclaration?: string;
+}
+
+const { eyebrow, icon, title, summary, meta, aiDeclaration } = Astro.props;
+---
+
+<section class="mx-auto max-w-3xl px-6 pt-16 pb-12">
+    <p
+        class="mb-8 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-ink-soft"
+    >
+        <span class="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true"></span>
+        {eyebrow}
+    </p>
+
+    <div class="flex flex-wrap items-start gap-6">
+        <Image
+            src={icon}
+            alt={`${title} app icon`}
+            width={96}
+            height={96}
+            densities={[1, 2]}
+            class="h-24 w-24 shrink-0"
+        />
+        <div class="min-w-0 flex-[1_1_20rem]">
+            <h1 class="font-display text-4xl font-medium leading-tight text-ink">
+                {title}
+            </h1>
+            <p class="mt-4 max-w-xl leading-relaxed text-pretty text-ink-soft">
+                {summary}
+            </p>
+        </div>
+    </div>
+
+    {
+        Astro.slots.has("default") && (
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+                <slot />
+            </div>
+        )
+    }
+
+    {meta && <p class="mt-5 font-mono text-xs text-ink-soft">{meta}</p>}
+
+    {aiDeclaration && <AiDeclaration note={aiDeclaration} class="mt-6" />}
+</section>

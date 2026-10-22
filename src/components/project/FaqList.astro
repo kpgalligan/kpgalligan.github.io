@@ -1,0 +1,21 @@
+---
+// Static question / answer rows — deliberately not an accordion.
+interface Props {
+    faq: { q: string; a: string }[];
+}
+
+const { faq } = Astro.props;
+---
+
+<dl>
+    {
+        faq.map(({ q, a }) => (
+            <div class="border-b border-line py-5">
+                <dt class="font-display text-base text-ink">{q}</dt>
+                <dd class="mt-2 max-w-xl text-sm leading-relaxed text-pretty text-ink-soft">
+                    {a}
+                </dd>
+            </div>
+        ))
+    }
+</dl>

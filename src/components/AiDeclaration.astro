@@ -1,0 +1,35 @@
+---
+// The "AI was used here" note, shared by blog posts and project pages.
+// Inlined rather than <img src="/svg/robot.svg"> so the icon inherits
+// currentColor from the surrounding text — an <img> would render it black
+// regardless of theme. `?raw` resolves at build time relative to this file;
+// a runtime fs read against import.meta.url breaks once the component is
+// bundled into a different chunk. Sizing comes from the wrapper, not the file.
+import robotSvg from "../../public/svg/robot.svg?raw";
+
+const robotIcon = robotSvg.replace(/\s(?:width|height)="\d+"/g, "");
+
+interface Props {
+    note: string;
+    class?: string;
+}
+
+const { note, class: className } = Astro.props;
+---
+
+<p class:list={[className, "flex items-start gap-2 text-sm italic text-ink-soft"]}>
+    <span class="group relative inline-flex shrink-0" tabindex="0">
+        <span
+            class="text-ai-accent [&>svg]:h-8 [&>svg]:w-8"
+            aria-hidden="true"
+            set:html={robotIcon}
+        />
+        <span
+            role="tooltip"
+            class="pointer-events-none absolute bottom-full left-0 z-10 mb-2 w-max max-w-64 rounded-md border border-line bg-surface px-2.5 py-1.5 text-xs not-italic text-ink opacity-0 shadow-md transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+        >
+            AI was used for content on this page
+        </span>
+    </span>
+    <span>{note}</span>
+</p>

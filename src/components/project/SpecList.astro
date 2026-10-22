@@ -1,0 +1,21 @@
+---
+// The same 10rem / 1fr definition rows as blocks/WhatIDo.astro.
+interface Props {
+    items: { title: string; body: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl>
+    {
+        items.map(({ title, body }) => (
+            <div class="grid gap-2 border-b border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-6">
+                <dt class="font-mono text-xs uppercase tracking-[0.2em] text-ink-soft">
+                    {title}
+                </dt>
+                <dd class="text-sm leading-relaxed text-ink-soft">{body}</dd>
+            </div>
+        ))
+    }
+</dl>
