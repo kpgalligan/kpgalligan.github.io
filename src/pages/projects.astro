@@ -2,20 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import SectionHeading from "@/components/SectionHeading.astro";
-import subwatchIcon from "@/assets/projects/subwatch/icon.png";
+import { visibleProjects } from "@/projects";
 
-// Hand-maintained: every project is a regular page under src/pages/projects/.
-// Add a row here when you add a page.
-const projects = [
-    {
-        title: "SubWatch",
-        href: "/projects/subwatch",
-        eyebrow: "macOS menu bar app",
-        summary:
-            "Shows how much of each AI subscription's rate limit you have used, in the menu bar. Claude Code and Codex.",
-        icon: subwatchIcon,
-    },
-];
+const projects = visibleProjects();
 ---
 
 <Layout
@@ -39,7 +28,7 @@ const projects = [
             {
                 projects.map((project) => (
                     <a
-                        href={project.href}
+                        href={`/projects/${project.slug}`}
                         class="group grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-b border-line py-5 transition-colors hover:border-signal sm:gap-6"
                     >
                         <Image

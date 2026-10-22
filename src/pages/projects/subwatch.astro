@@ -10,8 +10,12 @@ import SpecList from "@/components/project/SpecList.astro";
 import ReleaseList from "@/components/project/ReleaseList.astro";
 import FaqList from "@/components/project/FaqList.astro";
 import { SITE } from "@/site.config";
+import { isHidden } from "@/projects";
 import icon from "@/assets/projects/subwatch/icon.png";
 import popover from "@/assets/projects/subwatch/popover.jpeg";
+
+// An empty response makes the static build skip this page (see src/projects.ts).
+if (isHidden("subwatch")) return new Response(null, { status: 204 });
 
 const repo = "https://github.com/kpgalligan/subwatch";
 
